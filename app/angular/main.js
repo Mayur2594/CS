@@ -1,0 +1,1 @@
+var CSApp = angular.module('CSApp', ['ngSanitize','ngRoute','ngResource']);
