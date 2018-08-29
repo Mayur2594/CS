@@ -56,6 +56,10 @@ angular.module('CSApp', ['ngSanitize','ngRoute','ngResource']).config(function($
         templateUrl : "public/AccountTypes.html",
 		controller:"OfficeController"
     })
+	.when("/AccountPlans", {
+        templateUrl : "public/AccountPlans.html",
+		controller:"OfficeController"
+    })
 	.when("/TermsNConditions", {
         templateUrl : "public/TermsNConditions.html",
 		controller:"OfficeController"
