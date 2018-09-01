@@ -1,0 +1,42 @@
+<div class="container-fluid" ng-controller="EmployeesController">
+<form>
+	<div class="col-md-12 col-xs-12"><legend>Basic Details</legend></div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="firstname">First Name:</label>
+			<input type="text" class="form-control" id="firstname" placeholder="First Name" ng-model="employee[0].firstname">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="midname">Middle Name:</label>
+			<input type="text" class="form-control" id="midname" placeholder="Middle Name" ng-model="employee[0].midname">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="lastname">Last Name:</label>
+			<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="employee[0].lastname">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="gender">Gender:</label>
+			<select class="form-control" id="gender" ng-model="employee[0].gander" ng-options="obj for obj in ['Male','Female','Other']">
+				<option value="" selected disabled >Gender</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="dob">DOB:</label>
+			<input type="date" class="form-control" id="dob" placeholder="Last Name" ng-model="employee[0].dob">
+		</div>
+	</div>
+	<div class="col-md-12 col-xs-12"><legend>Address Details</legend></div>
+	
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</div>
