@@ -1,0 +1,225 @@
+<div class="container" ng-controller="MembersController">
+<form>
+	<div class="col-md-12 col-xs-12"><legend>Basic Details</legend></div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="firstname">First Name:</label>
+			<input type="text" class="form-control" id="firstname" placeholder="First Name" ng-model="membersDetails[0].firstname">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="midname">Middle Name:</label>
+			<input type="text" class="form-control" id="midname" placeholder="Middle Name" ng-model="membersDetails[0].midname">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="lastname">Last Name:</label>
+			<input type="text" class="form-control" id="lastname" placeholder="Last Name" ng-model="membersDetails[0].lastname">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="gender">Gender:</label>
+			<select class="form-control" id="gender" ng-model="membersDetails[0].gander" ng-options="obj for obj in ['Male','Female','Other']">
+				<option value="" selected disabled >Gender</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="dob">DOB:</label>
+			<input type="date" class="form-control" id="dob"  ng-model="membersDetails[0].dob">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="mobile1">Mobile No.:</label>
+			<input type="number" class="form-control" id="mobile1" placeholder="Mobile No."  ng-model="membersDetails[0].contactdetails.mobile1">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="mobile2">Alt. Mobile No.:</label>
+			<input type="number" class="form-control" id="mobile2"  placeholder="Alt. Mobile No."  ng-model="membersDetails[0].contactdetails.mobile2">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="email">Email:</label>
+			<input type="email" class="form-control" id="email"  placeholder="Email" ng-model="membersDetails[0].contactdetails.email">
+		</div>
+	</div>
+	<div class="col-md-12 col-xs-12"><legend>Address Details</legend></div>
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln1">Line 1:</label>
+			<input type="text" class="form-control" id="adln1" placeholder="Line 1" ng-model="membersDetails[0].address.line1">
+		</div>
+	</div>
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln2">Line 2:</label>
+			<input type="text" class="form-control" id="adln2" placeholder="Line 2" ng-model="membersDetails[0].address.line2">
+		</div>
+	</div>
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln3">Line 3:</label>
+			<input type="text" class="form-control" id="adln3" placeholder="Line 3" ng-model="membersDetails[0].address.line3">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="city">City:</label>
+			<input type="text" class="form-control" id="city" placeholder="City" ng-model="membersDetails[0].address.city">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="state">State:</label>
+			<input type="text" class="form-control" id="state" placeholder="State" ng-model="membersDetails[0].address.state">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="zip">Pincode:</label>
+			<input type="text" class="form-control" id="zip" placeholder="Pincode" ng-model="membersDetails[0].address.zip">
+		</div>
+	</div>
+	
+	<div class="col-md-12 col-xs-12"><legend>Alternate Address Details</legend></div>
+	
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln1">Line 1:</label>
+			<input type="text" class="form-control" id="adln1" placeholder="Line 1" ng-model="membersDetails[0].altaddress.line1">
+		</div>
+	</div>
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln2">Line 2:</label>
+			<input type="text" class="form-control" id="adln2" placeholder="Line 2" ng-model="membersDetails[0].altaddress.line2">
+		</div>
+	</div>
+	<div class="col-md-4 col-xs-12">
+		<div class="form-group">
+			<label for="adln3">Line 3:</label>
+			<input type="text" class="form-control" id="adln3" placeholder="Line 3" ng-model="membersDetails[0].altaddress.line3">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="city">City:</label>
+			<input type="text" class="form-control" id="city" placeholder="City" ng-model="membersDetails[0].altaddress.city">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="state">State:</label>
+			<input type="text" class="form-control" id="state" placeholder="State" ng-model="membersDetails[0].altaddress.state">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="zip">Pincode:</label>
+			<input type="text" class="form-control" id="zip" placeholder="Pincode" ng-model="membersDetails[0].altaddress.zip">
+		</div>
+	</div>
+	
+		<div class="col-md-12 col-xs-12"><legend>Document Details</legend></div>
+		
+		<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="aadhaar">Aadhaar card No.:</label>
+			<input type="text" class="form-control" id="aadhaar" placeholder="Aadhaar card No." ng-model="membersDetails[0].documentsdetails.aadhaar">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="pan">Pan No.:</label>
+			<input type="text" class="form-control" id="pan" placeholder="Pan No." ng-model="membersDetails[0].documentsdetails.pan">
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="photo">Photo:</label>
+			<input type="file" id="photo" placeholder="Photo" ng-model="membersDetails[0].documentsdetails.pic">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="row">
+				<img src="http://localhost:8083/imgs/img.jpg" class="img-responsive img-thumbnail" height="200" width="150"/>
+		</div>
+	</div>
+	
+		
+		
+	
+	<div class="col-md-12 col-xs-12"><legend>Account Details</legend></div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="referred">Referred By:</label>
+			<input type="text" class="form-control" id="referred" placeholder="Referred By" ng-model="membersDetails[0].refredby">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="branch">Branch:</label>
+			<select class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch">
+				<option value="" selected disabled>Branch</option>
+			</select>
+		</div>
+	</div>
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="area">Area:</label>
+			<select class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid">
+				<option value="" selected disabled>Area</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="group">Group:</label>
+			<select class="form-control" id="group" placeholder="Area" ng-model="membersDetails[0].group">
+				<option value="" selected disabled>Group</option>
+			</select>
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="depositeamt">Deposit Amount:</label>
+			<input type="text" class="form-control" id="depositeamt" placeholder="Deposit Amount" ng-model="membersDetails[0].depositeamount">
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="strtdate">Starting Date:</label>
+			<input type="date" class="form-control" id="strtdate"  ng-model="membersDetails[0].startingdate">
+		</div>
+	</div>
+	
+	
+  <div class="col-ms-12 col-xs-12 text-center">
+	
+	<br>
+	<br>
+	<button class="btn btn-warning">Cancel</button>&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Submit</button>
+	<br>
+	<br>
+	</div>
+	
+</form>
+</div>

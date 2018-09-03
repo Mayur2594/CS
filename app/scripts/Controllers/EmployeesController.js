@@ -2,9 +2,9 @@ angular.module('CSApp')
 .controller('EmployeesController',function ($scope,$http,$route,$location) {
 	
 	
-	$scope.RedirectToEmpForm = function()
+	$scope.RedirectToForm = function(redirectpath)
 	{
-		$location.path( "/EmployeeForm" );
+		$location.path(redirectpath);
 	};
 	
 });
