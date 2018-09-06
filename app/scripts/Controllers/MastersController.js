@@ -7,14 +7,7 @@ angular.module('CSApp')
 	var description = [{point:''}];
 	$scope.termsNConditions.push({description:description})
 	
-	$scope.AddNewRow = function()
-	{
-		description.push({point:''})
-	}
-	$scope.RemoveRow = function(index)
-	{
-			description.splice(index,1);
-	}
+	
 	
 	$scope.ListTermsNCondtions = function()
 	{
@@ -23,7 +16,20 @@ angular.module('CSApp')
               , url: '/api/ListTermsNCondtions/'
               , dataType: 'jsonp'
 			}).then(function (response) {
-			console.log(response);
+			$scope.termsList = response.data;
+		});
+	}
+	
+	
+	
+	$scope.getTermsDetails = function(termid)
+	{
+		$http({
+              method: 'GET'
+              , url: '/api/getTermsDetails/'+termid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.termsNConditions = response.data;
 		});
 	}
 	
@@ -37,8 +43,41 @@ angular.module('CSApp')
 			headers : {'Content-Type': 'application/json'} 
 		}).then(function(response) {
 			alert(response.data.message);
+			$scope.termsNConditions =[];
 			$scope.ListTermsNCondtions();
 		});
+	}
+	
+	$scope.AddNewRow = function()
+	{
+		$scope.termsNConditions[0].description.push({point:''})
+	}
+	
+	$scope.RemoveRow = function(index)
+	{		
+				console.log($scope.termsNConditions[0].description[index])
+			if($scope.termsNConditions[0].description[index]._id)
+			{
+				$http({
+					  method: 'DELETE'
+					  , url: '/api/RemoveTermDescriptionPoint/'+$scope.termsNConditions[0].description[index]._id
+					  , dataType: 'jsonp'
+					}).then(function (response) {
+					if(response.data.status === 1)
+					{
+						alert(response.data.message)
+					}
+					else
+					{
+						$scope.getTermsDetails($scope.termsNConditions[0]._id)
+					}
+				});
+			}
+			else
+			{
+				
+			}
+			description.splice(index,1);
 	}
 	
 	/* ---TEARMS AND CONDITIONS*/
