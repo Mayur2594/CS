@@ -8036,6 +8036,16 @@ button.close {
         display: none!important
     }
 }
+ul > li{
+	list-style-type:none;
+	white-space:nowrap;
+}
+.mt-0{
+	margin-top:1rem !important;
+}
+.mt-5{
+	margin-top:4.3rem !important;
+}
 
 
 /*# sourceMappingURL=bootstrap.min.css.map */
