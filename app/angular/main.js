@@ -76,6 +76,14 @@ angular.module('CSApp', ['ngSanitize','ngRoute','ngResource']).config(function($
         templateUrl : "public/Lock.html",
 		controller:"EmployeesController"
     })
+	.when("/EmployeeForm", {
+        templateUrl : "public/EmployeeForm.html",
+		controller:"EmployeesController"
+    })
+	.when("/MemberForm", {
+        templateUrl : "public/MemberForm.html",
+		controller:"MembersController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

@@ -4,6 +4,7 @@ var bodypareser = require('body-parser')
 var mongoose = require('mongoose');
 var fs = require('fs');
 var morgan = require('morgan');
+var routes = require('./lib/routes');
 
 var app = express();
 
@@ -33,6 +34,9 @@ mongoose.connect(process.env.MONGOLAB_URI, options).then(
 	console.log("Datebase error: "+err);
   }
 );
+
+
+routes.configure(app);
 
 var server = app.listen(parseInt(process.env.SERVING_PORT),function(){
 	console.log('server start on '+ server.address().port+ ' port');
