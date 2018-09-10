@@ -87,4 +87,10 @@ angular.module('CSApp', ['ngSanitize','ngRoute','ngResource']).config(function($
 	.otherwise({
 		  redirectTo: ''
 		});
+}).filter('startFrom', function () {
+    return function (input, start) {
+        start = +start;
+       if(input!=undefined)
+        {return input.slice(start);}
+    }
 });
