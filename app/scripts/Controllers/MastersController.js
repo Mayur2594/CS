@@ -83,6 +83,8 @@ angular.module('CSApp')
 					});
 				}
 	}
+	
+	
 
 	$scope.getTermsDetails = function(termid)
 	{
@@ -149,6 +151,68 @@ angular.module('CSApp')
 	
 	
 	/* ---TEARMS AND CONDITIONS*/
+	
+	/* AREA DETAILS--- */
+		
+		$scope.ListAreas = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAreas/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.areasList = response.data;
+			$(".loader").fadeOut("slow");
+			$scope.pagination($scope.areasList);
+		});
+		};
+		
+		
+		$scope.getAreaDetails = function(areaid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/getAreaDetails/'+areaid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.areaDetails = response.data;
+		});
+		};
+			
+			$scope.DeleteArea = function(areaid)
+			{
+				var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+						if(yes)
+						{
+							$http({
+								  method: 'DELETE'
+								  , url: '/api/DeleteArea/'+areaid
+								  , dataType: 'jsonp'
+								}).then(function (response) {
+								alert(response.data.message);
+								$scope.ListAreas();
+							});
+						}
+			};
+		
+		
+		$scope.SaveAreaDetails = function()
+		{
+			$http({
+			method  : 'POST',
+			url     : '/api/SaveAreaDetails/',
+			data    : $scope.areaDetails[0] ,
+			headers : {'Content-Type': 'application/json'} 
+			}).then(function(response) {
+			alert(response.data.message);
+			$scope.areaDetails =[];
+			$scope.ListAreas();
+		});
+		};
+		
+		
+	/* ---AREA DETAILS */
+	
 });
 	
 	
