@@ -162,6 +162,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.areasList = response.data;
+			console.log($scope.areasList)
 			$(".loader").fadeOut("slow");
 			$scope.pagination($scope.areasList);
 		});
@@ -281,7 +282,7 @@ angular.module('CSApp')
 		{
 			$http({
               method: 'GET'
-              , url: '/api/ListBranchs/'
+              , url: '/api/ListBranchsforReferance/'
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.branchList = response.data;

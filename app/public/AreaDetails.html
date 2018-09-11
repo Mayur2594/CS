@@ -72,6 +72,7 @@
 				<tr>
 					<th>#</th>
 					<th>Area</th>
+					<th>Branch</th>
 					<th>Description</th>
 					<th>Area Code</th>
 					<th>Action</th>
@@ -80,6 +81,7 @@
 					<tr ng-repeat="data in areasList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 						<td>{{$index + 1}}</td>
 						<td>{{data.areaname}}</td>
+						<td>{{data.branchid.branchname}}</td>
 						<td>{{data.description}}</td>
 						<td>{{data.areacode}}</td>
 						<td class="text-center"><button class="btn btn-warning" ng-click="getAreaDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteArea(data._id)">Delete</button></td>
