@@ -213,6 +213,95 @@ angular.module('CSApp')
 		
 	/* ---AREA DETAILS */
 	
+	
+	/* GROUP DETAILS--- */
+		
+		$scope.ListGroups = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListGroups/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.groupsList = response.data;
+			$(".loader").fadeOut("slow");
+			$scope.pagination($scope.groupsList);
+		});
+		};
+		
+		
+		$scope.getGroupDetails = function(groupid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/getGroupDetails/'+groupid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.groupDetails = response.data;
+		});
+		};
+			
+			$scope.DeleteGroup = function(groupid)
+			{
+				var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+						if(yes)
+						{
+							$http({
+								  method: 'DELETE'
+								  , url: '/api/DeleteGroup/'+groupid
+								  , dataType: 'jsonp'
+								}).then(function (response) {
+								alert(response.data.message);
+								$scope.ListGroups();
+							});
+						}
+			};
+		
+		
+		$scope.SavegroupDetails = function()
+		{
+			$http({
+			method  : 'POST',
+			url     : '/api/SavegroupDetails/',
+			data    : $scope.groupDetails[0] ,
+			headers : {'Content-Type': 'application/json'} 
+			}).then(function(response) {
+			alert(response.data.message);
+			$scope.groupDetails =[];
+			$scope.ListGroups();
+		});
+		};
+		
+		
+	/* ---GROUP DETAILS */
+	
+	/* REFERANCE FUNCTION---- */
+		
+		$scope.ListBranchs = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListBranchs/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.branchList = response.data;
+		});
+		};
+		
+		$scope.ListAreasOnBranch = function(branchid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAreasOnBranch/'+branchid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ListOfAreas = response.data;
+		});
+		};
+	
+	/* ----REFERANCE FUNCTION */
+	
+	
 });
 	
 	
