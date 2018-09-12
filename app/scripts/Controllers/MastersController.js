@@ -276,6 +276,69 @@ angular.module('CSApp')
 		
 	/* ---GROUP DETAILS */
 	
+	
+	
+	/* EVENTS DETAILS--- */
+		
+		$scope.ListEvents = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListEvents/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.eventsList = response.data;
+			$(".loader").fadeOut("slow");
+			$scope.pagination($scope.eventsList);
+		});
+		};
+		
+		
+		$scope.getEventDetails = function(eventid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/getEventDetails/'+eventid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.eventsDetails = response.data;
+		});
+		};
+			
+			$scope.DeleteEvent = function(eventid)
+			{
+				var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+						if(yes)
+						{
+							$http({
+								  method: 'DELETE'
+								  , url: '/api/DeleteEvent/'+eventid
+								  , dataType: 'jsonp'
+								}).then(function (response) {
+								alert(response.data.message);
+								$scope.ListEvents();
+							});
+						}
+			};
+		
+		
+		$scope.SaveEventsDetails = function()
+		{
+			$http({
+			method  : 'POST',
+			url     : '/api/SaveEventsDetails/',
+			data    : $scope.eventsDetails[0] ,
+			headers : {'Content-Type': 'application/json'} 
+			}).then(function(response) {
+			alert(response.data.message);
+			$scope.eventsDetails =[];
+			$scope.ListEvents();
+		});
+		};
+		
+		
+	/* ---EVENTS DETAILS */
+	
 	/* REFERANCE FUNCTION---- */
 		
 		$scope.ListBranchs = function()

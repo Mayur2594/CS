@@ -86,10 +86,10 @@
 					<tr ng-repeat="data in groupsList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 					<td>{{$index +1}}</td>
 					<td>{{data.groupname}}</td>
-					<td>{{data.areaid}}</td>
-					<td>{{data.branchid}}</td>
+					<td>{{data.areaid.areaname}}</td>
+					<td>{{data.branchid.branchname}}</td>
 					<td>{{data.grouphead}}</td>
-					<td class="text-center"><button class="btn btn-warning" ng-click="getGroupDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteGroup(data._id)">Delete</button></td>
+					<td class="text-center"><button class="btn btn-warning" ng-click="getGroupDetails(data._id);ListAreasOnBranch(data.branchid._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteGroup(data._id)">Delete</button></td>
 					</tr>
 				</tbody>
 			</table>
