@@ -302,6 +302,9 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.eventsDetails = response.data;
+			$scope.eventsDetails[0].startdate = new Date($scope.eventsDetails[0].startdate);
+			$scope.eventsDetails[0].enddate = new Date($scope.eventsDetails[0].enddate);
+			
 		});
 		};
 			
@@ -360,6 +363,19 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.ListOfAreas = response.data;
+		});
+		};
+		
+		
+		$scope.ListGroupsOnArea = function(areaid)
+		{
+			$scope.eventsDetails[0].group = null;
+			$http({
+              method: 'GET'
+              , url: '/api/ListGroupsOnArea/'+areaid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ListOfGroups = response.data;
 		});
 		};
 	

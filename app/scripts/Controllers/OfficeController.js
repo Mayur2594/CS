@@ -106,5 +106,67 @@ angular.module('CSApp')
 	/* ---BRANCH DETAILS */
 	
 	
+	/* ACCOUNT TYPES--- */
+	
+		$scope.ListAccounttypes = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAccounttypes/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ACTypesList = response.data;
+			$(".loader").fadeOut("slow");
+			$scope.pagination($scope.ACTypesList);
+		});
+		};
+		
+		
+		$scope.getAccounttypesDetails = function(actypeid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/getAccounttypesDetails/'+actypeid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.accountTypes = response.data;
+		});
+		};
+		
+		
+		$scope.DeleteACTypeDetails = function(actypeid)
+	{
+		var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+				if(yes)
+				{
+					$http({
+						  method: 'DELETE'
+						  , url: '/api/DeleteACTypeDetails/'+actypeid
+						  , dataType: 'jsonp'
+						}).then(function (response) {
+						alert(response.data.message);
+						$scope.ListAccounttypes();
+					});
+				}
+	}
+		
+		$scope.SaveaccountTypes = function()
+		{
+			$scope.accountTypes[0].createdby = userid
+		$http({
+			method  : 'POST',
+			url     : '/api/SaveaccountTypes/',
+			data    : $scope.accountTypes[0] ,
+			headers : {'Content-Type': 'application/json'} 
+		}).then(function(response) {
+			alert(response.data.message);
+			$scope.accountTypes =[];
+			$scope.ListAccounttypes();
+		});
+		};
+	
+	/* ---ACCOUNT TYPES */
+	
+	
 });
 	

@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="MastersController">
-	<div class="row">
+	<div class="row" ng-init="ListBranchs()">
 		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary" data-toggle="modal" data-target="#ModalPopup">Add New</button></div>
 		<div class="col-md-3 col-sm-9 col-xs-9 pull-right">
 			<div class="form-group">
@@ -19,6 +19,8 @@
 					<!-- <h4 class="modal-title">Area Details</h4> -->
 				</div>
 				<div class="modal-body">
+				<div class="row">
+				<div class="col-md-12 col-xs-12">
 					<form name="groupdetals">
 						<div class="form-group">
 							<label for="name">Name:</label>
@@ -29,21 +31,48 @@
 							<label for="description">Description:</label>
 							<textarea class="form-control" id="description" placeholder="Description" ng-model="eventsDetails[0].description"></textarea>
 						</div>
-						<div class="form-group">
-							<label for="branch">Branch:</label>
-							<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="eventsDetails[0].branchid" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
+						
+						<div class="row">
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="startdate">Starting Date:</label>
+								<input type="date" class="form-control" id="startdate"  ng-model="eventsDetails[0].startdate"/>
+							</div>
 						</div>
 						
-						<div class="form-group">
-							<label for="area">Area:</label>
-							<input type="text" class="form-control" id="area" placeholder="Area" ng-model="eventsDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas">
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="enddate">End Date:</label>
+								<input type="date" class="form-control" id="enddate"  ng-model="eventsDetails[0].enddate"/>
+							</div>
+						</div>
+						</div>
+						<div class="row">
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="branch">Branch:</label>
+								<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="eventsDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
+							</div>
+						</div>
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="area">Area:</label>
+								<input type="text" class="form-control" id="area" placeholder="Area" ng-model="eventsDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)">
+							</div>
 						</div>
 						
-						
-						
+						<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="group">Group:</label>
+								<input type="text" class="form-control" id="group" placeholder="Group" ng-model="eventsDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups">
+							</div>
+						</div>
+						</div>
 					</form>
 				</div>
-				<div class="modal-footer mt-5">
+				</div>
+				</div>
+				<div class="modal-footer">
 					<button type="button" class="btn btn-primary" ng-click="SaveEventsDetails()" data-dismiss="modal">Submit</button>
 					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
@@ -80,9 +109,19 @@
 					<th>Name</th>
 					<th>Start Date</th>
 					<th>End date</th>
-					<th>Created By</th>
+					<th>Description</th>
 					<th>Action</th>
 				</tr>
+				<tbody ng-init="ListEvents()">
+						<tr ng-repeat="data in eventsList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
+							<td>{{$index + 1}}</td>
+							<td>{{data.name}}</td>
+							<td class="text-center">{{data.startdate | date:'dd/MM/yyyy'}}</td>
+							<td class="text-center">{{data.enddate | date:'dd/MM/yyyy'}}</td>
+							<td>{{data.description}}</td>
+							<td class="text-center"><button class="btn btn-warning" ng-click="getEventDetails(data._id);ListAreasOnBranch(data.branch._id);ListGroupsOnArea(data.areaid._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteEvent(data._id)">Delete</button></td>
+						</tr>
+				</tbody>
 			</table>
 		</div>
 </div>
