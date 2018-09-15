@@ -166,7 +166,82 @@ angular.module('CSApp')
 		};
 	
 	/* ---ACCOUNT TYPES */
+
 	
+	/* ACCOUNT PLANS--- */
+	
+		$scope.ListaccountPlans = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListaccountPlans/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ACPlanList = response.data;
+			$(".loader").fadeOut("slow");
+			$scope.pagination($scope.ACPlanList);
+		});
+		};
+		
+		
+		$scope.getAccountPlansDetails = function(acplanid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/getAccountPlansDetails/'+acplanid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.accountTypes = response.data;
+		});
+		};
+		
+		
+		$scope.DeleteACPlanDetails = function(acplanid)
+	{
+		var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+				if(yes)
+				{
+					$http({
+						  method: 'DELETE'
+						  , url: '/api/DeleteACPlanDetails/'+acplanid
+						  , dataType: 'jsonp'
+						}).then(function (response) {
+						alert(response.data.message);
+						$scope.ListaccountPlans();
+					});
+				}
+	}
+		
+		$scope.SaveAccountPlan = function()
+		{
+			$scope.accountPlans[0].createdby = userid
+		$http({
+			method  : 'POST',
+			url     : '/api/SaveAccountPlan/',
+			data    : $scope.accountPlans[0] ,
+			headers : {'Content-Type': 'application/json'} 
+		}).then(function(response) {
+			alert(response.data.message);
+			$scope.accountPlans =[];
+			$scope.ListaccountPlans();
+		});
+		};
+	
+	/* ---ACCOUNT PLANS */
+	
+	/* REFERANCE */
+		$scope.ListAcTypesRef = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAcTypesRef/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.accountTypesref = response.data;
+		});
+		};
+	
+	/* REFERANCE */
 	
 });
 	

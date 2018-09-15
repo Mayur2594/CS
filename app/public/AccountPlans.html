@@ -1,19 +1,118 @@
 <div class="container-fluid" ng-controller="OfficeController">
 	<div class="row">
-		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary">Add New</button></div>
+		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary" data-toggle="modal" data-target="#ModalPopup">Add New</button></div>
 		<div class="col-md-3 col-sm-9 col-xs-9 pull-right">
 			<div class="form-group">
-				<input type="text" class="form-control" placeholder="Search">
+				<input type="text" class="form-control" placeholder="Search" ng-model="search.values">
 			</div>
 		</div>
 	</div>
+	
+	
+	<div class="modal fade" id="ModalPopup" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<!-- <h4 class="modal-title">Account Types</h4> -->
+				</div>
+				<div class="modal-body">
+				<div class="row">
+				<div class="col-md-12 col-xs-12">
+					<form name="accountTypedetals">
+						<div class="row">
+							<div class="col-md-6 col-xs-12">
+								<div class="form-group">
+									<label for="name">Name:</label>
+									<input class="form-control" id="name" placeholder="Name" ng-model="accountPlans[0].name">
+								</div>
+							</div>
+							
+							<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="accounttype">Account Type:</label>
+								<select class="form-control" ng-model="accountPlans[0].actypeid" ng-options="obj as obj.accounttype for obj in accountTypesref" ng-change="accountPlans[0].interestrate = accountPlans[0].actypeid.interestrate">
+									<option value="" selected disabled>Select Account Type</option>
+								</select>
+							</div>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col-md-12 col-xs-12">
+								<div class="form-group">
+									<label for="description">Description:</label>
+									<textarea class="form-control" id="description" placeholder="Description" ng-model="accountPlans[0].description"></textarea>
+								</div>
+							</div>
+						</div>
+						
+						<div class="row">
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="interestrate">Interest Rate (%):</label>
+								<input type="text" class="form-control" id="interestrate" placeholder="Interest Rate"  ng-model="accountPlans[0].interestrate"/>
+							</div>
+						</div>
+						
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="frequency">Frequency:</label>
+								<input type="text" class="form-control" id="frequency" placeholder="Frequency"  ng-model="accountPlans[0].frequency"/>
+							</div>
+						</div>
+						
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="tenure">Tenure:</label>
+								<input type="text" class="form-control" id="tenure" placeholder="Tenure"  ng-model="accountPlans[0].tenure"/>
+							</div>
+						</div>
+						<div class="col-md-3 col-xs-12">
+							<div class="form-group">
+								<label for="tenuretype">Tenure Type:</label>
+								<select class="form-control" id="tenuretype" ng-model="accountPlans[0].tenuretype" ng-options="obj for obj in ['Days','Months']">
+									<option value="" selected disabled>SELECT</option>
+								</select>
+							</div>
+						</div>
+						</div>
+						
+						
+					</form>
+				</div>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="SaveAccountPlan()" data-dismiss="modal">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	
 		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<td class="bg-warning pageheading" colspan="2">
-							<label class="label-controller ">Account Plans</label>
+							<!-- <label class="label-controller ">Account Plans</label> -->
+						</td>
+						<td class="pageheading" colspan="7">
+							
+							<div class="col-md-3 col-xs-8 pull-right">
+							<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
+													  <b>  {{currentPage+1}} / {{numberOfPages()}} </b>
+													  <input type='number' min='1' max='{{maxpage}}' ng-change='checkcurrpage(myValue)' style='width:35%' ng-model='myValue'>
+														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= ACPlanList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
+														</div>
+														
+														<div class="col-md-2 col-xs-4 pull-right"><select class="form-control" ng-model="pageSize" ng-options="obj.value as obj.name for obj in recordsdisplay">
+								<option value="" selected disabled>Record to display</option>
+							</select>
+							</div>
 						</td>
 					</tr>
 				</thead>
@@ -28,6 +127,19 @@
 					<th>Interest Rate (%)</th>
 					<th>Action</th>
 				</tr>
+				<tbody ng-init="ListaccountPlans();ListAcTypesRef();">
+						<tr ng-repeat="data in ACPlanList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
+							<td>{{$index + 1}}</td>
+							<td>{{data.accounttype}}</td>
+							<td>{{data.interestrate}}</td>
+							<td class="text-center">{{data.guarantor}}</td>
+							<td class="text-center">{{data.installments}}</td>
+							<td class="text-center">{{data.installments}}</td>
+							<td class="text-center">{{data.installments}}</td>
+							<td class="text-center">{{data.installments}}</td>
+							<td class="text-center"><button class="btn btn-warning" ng-click="getAccountPlansDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteACPlanDetails(data._id)">Delete</button></td>
+						</tr>
+				</tbody>
 			</table>
 		</div>
 </div>
