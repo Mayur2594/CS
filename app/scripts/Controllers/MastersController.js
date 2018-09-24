@@ -369,7 +369,9 @@ angular.module('CSApp')
 		
 		$scope.ListGroupsOnArea = function(areaid)
 		{
+			if($scope.eventsDetails)
 			$scope.eventsDetails[0].group = null;
+		
 			$http({
               method: 'GET'
               , url: '/api/ListGroupsOnArea/'+areaid

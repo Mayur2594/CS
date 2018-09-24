@@ -32,9 +32,8 @@
 							<div class="col-md-6 col-xs-12">
 							<div class="form-group">
 								<label for="accounttype">Account Type:</label>
-								<select class="form-control" ng-model="accountPlans[0].actypeid" ng-options="obj as obj.accounttype for obj in accountTypesref" ng-change="accountPlans[0].interestrate = accountPlans[0].actypeid.interestrate">
-									<option value="" selected disabled>Select Account Type</option>
-								</select>
+								<input class="form-control" ng-model="accountPlans[0].actypeid" uib-typeahead="obj as obj.accounttype for obj in accountTypesref" typeahead-on-select="accountPlans[0].interestrate = accountPlans[0].actypeid.interestrate" placeholder="Select Account Type">
+								
 							</div>
 							</div>
 						</div>
@@ -59,7 +58,9 @@
 						<div class="col-md-3 col-xs-12">
 							<div class="form-group">
 								<label for="frequency">Frequency:</label>
-								<input type="text" class="form-control" id="frequency" placeholder="Frequency"  ng-model="accountPlans[0].frequency"/>
+								<select class="form-control" id="frequency" ng-model="accountPlans[0].frequency" ng-options="obj for obj in ['Daily','Monthly']">
+									<option value="" selected disabled>SELECT</option>
+								</select>
 							</div>
 						</div>
 						
@@ -79,6 +80,60 @@
 						</div>
 						</div>
 						
+						
+						<div class="row" ng-if="accountPlans[0].actypeid.guarantor !='Yes' && accountPlans[0].actypeid.installments !='Yes'">
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="basicamount">Basic Amount:</label>
+								<input type="text" class="form-control" id="basicamount" placeholder="Basic Amount"  ng-model="accountPlans[0].basicamount"/>
+							</div>
+						</div>
+						
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="netamount">Net Amount:</label>
+								<input type="text" class="form-control" ng-model="accountPlans[0].netamount" id="netamount" placeholder="Net Amount"/>
+							</div>
+						</div>
+						</div>
+						<div class="row" ng-if="accountPlans[0].actypeid.guarantor ==='Yes' && accountPlans[0].actypeid.installments ==='Yes'">
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="emiamount">EMI Amount:</label>
+								<input type="text" class="form-control" id="emiamount" placeholder="EMI Amount"  ng-model="accountPlans[0].emiamount"/>
+							</div>
+						</div>
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="loanamount">Loan Amount:</label>
+								<input type="text" class="form-control" id="loanamount" placeholder="Loan Amount"  ng-model="accountPlans[0].loanamount"/>
+							</div>
+						</div>
+						</div>
+						<div class="row" ng-controller="MastersController">
+							<div class="col-md-4 col-xs-12" ng-init="ListBranchs()">
+							<div class="form-group">
+								<label for="branch">Branch:</label>
+								<input class="form-control" ng-model="accountPlans[0].branch"  uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="accountPlans[0].areaid = null;accountPlans[0].group = null;ListAreasOnBranch($item._id)" placeholder="Select Branch" id="branch">
+							</div>
+							</div>
+							
+							<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="areaid">Area:</label>
+								<input class="form-control" ng-model="accountPlans[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="accountPlans[0].group = null;ListGroupsOnArea($item._id)" id="area" ng-disabled="(accountPlans[0].branch == null || accountPlans[0].branch == undefined)" placeholder="Select Area">
+							</div>
+							</div>
+							
+							<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="group">Group:</label>
+								<input class="form-control" ng-model="accountPlans[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" placeholder="Select Group" ng-disabled="(accountPlans[0].areaid == null || accountPlans[0].areaid == undefined)" id="group">
+							</div>
+							</div>
+							
+							
+						</div>
 						
 					</form>
 				</div>
@@ -122,22 +177,18 @@
 					<th>A/C Type</th>
 					<th>Frequency</th>
 					<th>Tenure</th>
-					<th>Paid Amount</th>
-					<th>Net Amount</th>
 					<th>Interest Rate (%)</th>
 					<th>Action</th>
 				</tr>
 				<tbody ng-init="ListaccountPlans();ListAcTypesRef();">
 						<tr ng-repeat="data in ACPlanList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 							<td>{{$index + 1}}</td>
-							<td>{{data.accounttype}}</td>
-							<td>{{data.interestrate}}</td>
-							<td class="text-center">{{data.guarantor}}</td>
-							<td class="text-center">{{data.installments}}</td>
-							<td class="text-center">{{data.installments}}</td>
-							<td class="text-center">{{data.installments}}</td>
-							<td class="text-center">{{data.installments}}</td>
-							<td class="text-center"><button class="btn btn-warning" ng-click="getAccountPlansDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteACPlanDetails(data._id)">Delete</button></td>
+							<td>{{data.name}}</td>
+							<td>{{data.actypeid.accounttype}}</td>
+							<td class="text-left">{{data.frequency}}</td>
+							<td class="text-left">{{data.tenure}} {{data.tenuretype}}</td>
+							<td class="text-left">{{data.interestrate}}</td>
+							<td class="text-center"><button class="btn btn-warning" ng-click="getAccountPlansDetails(data._id);" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteACPlanDetails(data._id)">Delete</button></td>
 						</tr>
 				</tbody>
 			</table>

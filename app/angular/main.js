@@ -1,4 +1,4 @@
-angular.module('CSApp', ['ngSanitize','ngRoute','ngResource','ui.bootstrap']).config(function($routeProvider) {
+angular.module('CSApp', ['ngSanitize','ngRoute','ngResource','ui.bootstrap','ngFileUpload']).config(function($routeProvider) {
     $routeProvider
     .when("/", {
         templateUrl : "public/Login.html",

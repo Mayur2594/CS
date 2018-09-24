@@ -115,3 +115,45 @@ button.bg-dark:hover {
 							z-index: 9999;
 							background: url('../imgs/loader.gif') 50% 50% no-repeat rgb(249,249,249);
 						}
+						
+						
+						#imgpanel
+						{
+								height:140px;
+								width:130px;
+								margin-left:inherit !important;
+						}
+						.button{width:130px;}
+						
+						.imgcontainer {
+    position: relative;
+    width: 130px;
+    max-width: 130px;
+}
+
+.imgcontainer img {
+    width: 100px;
+    height: auto;
+}
+
+.imgcontainer .imgbtn {
+    position: absolute;
+    top: 5%;
+    left: 90%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    color: white;
+    font-size: 12px;
+    padding: 7px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+
+
+.imgcontainer .imgbtn:hover {
+    background-color: red;
+}

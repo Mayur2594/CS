@@ -1,5 +1,5 @@
 angular.module('CSApp')
-.controller('EmployeesController',function ($scope,$http,$route,$location,$window) {
+.controller('EmployeesController', ['$scope','$http','$route','$location','$window', 'Upload',function ($scope,$http,$route,$location,$window,Upload) {
 	
 	
 	$scope.RedirectToForm = function(redirectpath)
@@ -44,14 +44,63 @@ angular.module('CSApp')
 					{
 						$scope.myValue = 1;
 					}
+								$(".loader").fadeOut("slow");
 					$scope.numberOfPages = function () {
 						return Math.ceil(listdata.length / $scope.pageSize);
 					};
 			};
 	
+	 $scope.clear = function () {
+		document.getElementById('imgpanel').src = null;
+	};
 	
 	
 	
 	
-});
+	
+	
+	$scope.ListEmployees = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListEmployees/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.EmployeesList = response.data;
+			$scope.pagination($scope.EmployeesList);
+		});
+		};
+		
+		
+	
+	
+	$scope.SaveEmployeeDetails = function()
+	{
+		 if ($scope.empdetails.file.$valid && $scope.file) {
+			 var passeddata = {file: $scope.file, employeedetails:$scope.employee[0]}
+		 }
+		 else
+		 {
+			  var passeddata = {employeedetails:$scope.employee[0]}
+		 }
+			 $scope.employee[0].createdby ="gdhd73dbddbdj"
+			 $scope.employee[0].profilepic =""
+        Upload.upload({
+            url: '/api/SaveEmployeesDetails',
+            data: passeddata
+        }).then(function (resp) {
+            //alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
+            alert('Record inserted successfully');
+			$scope.RedirectToForm('/EmployeeDetails');
+        }, function (resp) {
+            //alert('Error status: ' + resp.status);
+            alert('Something went wrong, Please try again!');
+        }, function (evt) {
+            var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+           // console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
+        }); 
+	};
+	
+		
+}]);
 	

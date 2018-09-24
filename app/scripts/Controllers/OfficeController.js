@@ -191,7 +191,7 @@ angular.module('CSApp')
               , url: '/api/getAccountPlansDetails/'+acplanid
               , dataType: 'jsonp'
 			}).then(function (response) {
-			$scope.accountTypes = response.data;
+			$scope.accountPlans = response.data;
 		});
 		};
 		
@@ -240,7 +240,11 @@ angular.module('CSApp')
 			$scope.accountTypesref = response.data;
 		});
 		};
-	
+		
+		
+		
+		
+		
 	/* REFERANCE */
 	
 });

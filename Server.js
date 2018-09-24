@@ -32,9 +32,7 @@ mongoose.connect(process.env.MONGOLAB_URI, options).then(
   /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
   err => { /** handle initial connection error */ 
 	console.log("Datebase error: "+err);
-  }
-);
-
+  });
 
 routes.configure(app);
 
