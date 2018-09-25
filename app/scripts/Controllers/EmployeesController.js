@@ -71,6 +71,23 @@ angular.module('CSApp')
 		});
 		};
 		
+		$scope.getEmployeesDetails = function()
+		{
+				var url = window.location.href;
+				var qparts = url.split("?");
+				var passvar = qparts[1];
+			$http({
+              method: 'GET'
+              , url: '/api/getEmployeesDetails/'+passvar
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.employee = response.data;
+			$scope.employee[0].dob = new Date($scope.employee[0].dob)
+			$scope.employee[0].doj = new Date($scope.employee[0].doj)
+			console.log($scope.employee)
+		});
+		};
+		
 		
 	
 	
@@ -101,6 +118,11 @@ angular.module('CSApp')
         }); 
 	};
 	
-		
+	$scope.RedirectToEmployeeform = function(empid)
+	{
+		$location.path('/EmployeeForm/').search(empid);
+	}
+	
+	
 }]);
 	

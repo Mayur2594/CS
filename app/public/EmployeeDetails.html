@@ -48,7 +48,7 @@
 						<td>{{data.branch.branchname}}</td>
 						<td>{{data.doj | date:'dd/MM/yyyy'}}</td>
 						<td>{{data.role}}</td>
-						<td class="text-center"><button class="btn btn-warning" ng-click="getAreaDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteArea(data._id)">Delete</button></td>
+						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectToEmployeeform(data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteArea(data._id)">Delete</button></td>
 					</tr>
 				</tbody>
 			</table>
