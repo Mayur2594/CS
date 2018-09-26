@@ -7,6 +7,10 @@ angular.module('CSApp')
 		$location.path(redirectpath);
 	};
 	
+	var url = window.location.href;
+	var qparts = url.split("?");
+	var passvar = qparts[1];
+	
 	var userid = $window.localStorage["userid"];
 	
 		$scope.checkcurrpage=function(myValue){
@@ -71,21 +75,36 @@ angular.module('CSApp')
 		});
 		};
 		
+		$scope.VerifyrequiredFields = function(value,field)
+		{
+				$http({
+				method  : 'POST',
+				url     : '/api/VerifyrequiredFields/',
+				data    : {verification:value,field:String(field),userid:passvar},
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function(response) {
+					$scope.errormsg = response.data.message;
+					(response.data.status === 1)
+					{
+						document.getElementById("sbmt").disabled = true;
+					}
+				});
+		};
+		
 		$scope.getEmployeesDetails = function()
 		{
-				var url = window.location.href;
-				var qparts = url.split("?");
-				var passvar = qparts[1];
-			$http({
-              method: 'GET'
-              , url: '/api/getEmployeesDetails/'+passvar
-              , dataType: 'jsonp'
-			}).then(function (response) {
-			$scope.employee = response.data;
-			$scope.employee[0].dob = new Date($scope.employee[0].dob)
-			$scope.employee[0].doj = new Date($scope.employee[0].doj)
-			console.log($scope.employee)
-		});
+			if(passvar)
+			{
+				$http({
+				  method: 'GET'
+				  , url: '/api/getEmployeesDetails/'+passvar
+				  , dataType: 'jsonp'
+				}).then(function (response) {
+					$scope.employee = response.data;
+					$scope.employee[0].dob = new Date($scope.employee[0].dob)
+					$scope.employee[0].doj = new Date($scope.employee[0].doj)
+				});
+			}
 		};
 		
 		
@@ -101,7 +120,6 @@ angular.module('CSApp')
 			  var passeddata = {employeedetails:$scope.employee[0]}
 		 }
 			 $scope.employee[0].createdby ="gdhd73dbddbdj"
-			 $scope.employee[0].profilepic =""
         Upload.upload({
             url: '/api/SaveEmployeesDetails',
             data: passeddata

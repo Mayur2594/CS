@@ -17,7 +17,7 @@ function readURL(input) {
 
 <div class="container" ng-controller="EmployeesController">
 <form name="empdetails" ng-init="getEmployeesDetails()">
-	<div class="col-md-12 col-xs-12"><legend>Basic Details</legend></div>
+	<div class="col-md-12 col-xs-12"><legend>Basic Details<h4 class="pull-right text-danger">{{errormsg}}</h4></span></legend></div>
 	<div class="col-md-10 col-xs-10">
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
@@ -56,7 +56,7 @@ function readURL(input) {
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="mobile1">Mobile No.:</label>
-			<input type="text" class="form-control" id="mobile1" placeholder="Mobile No."  ng-model="employee[0].contactdetails.mobile1" required>
+			<input type="text" class="form-control" id="mobile1" placeholder="Mobile No."  ng-model="employee[0].contactdetails.mobile1" ng-blur="VerifyrequiredFields(employee[0].contactdetails.mobile1,'Mobile')" required>
 		</div>
 	</div>
 	
@@ -70,7 +70,7 @@ function readURL(input) {
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="email">Email:</label>
-			<input type="email" class="form-control" id="email"  placeholder="Email" ng-model="employee[0].contactdetails.email">
+			<input type="email" class="form-control" id="email"  placeholder="Email" ng-model="employee[0].contactdetails.email" ng-blur="VerifyrequiredFields(employee[0].contactdetails.email,'Email')">
 		</div>
 	</div>
 	</div>
@@ -149,7 +149,7 @@ function readURL(input) {
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="username">Username:</label>
-			<input type="text" class="form-control" id="username" placeholder="Username" ng-model="employee[0].username" required>
+			<input type="text" class="form-control" id="username" placeholder="Username" ng-model="employee[0].username" required ng-blur="VerifyrequiredFields(employee[0].username,'Username')">
 		</div>
 	</div>
 	
@@ -164,7 +164,7 @@ function readURL(input) {
 	
 	<br>
 	<br>
-	<button class="btn btn-warning" ng-click="RedirectToForm('/EmployeeDetails')">Cancel</button>&nbsp;&nbsp;<button type="submit" ng-disabled="empdetails.$invalid" class="btn btn-primary" ng-click="SaveEmployeeDetails()">Submit</button>
+	<button class="btn btn-warning" ng-click="RedirectToForm('/EmployeeDetails')">Cancel</button>&nbsp;&nbsp;<button type="submit" ng-disabled="empdetails.$invalid" id="sbmt" class="btn btn-primary" ng-click="SaveEmployeeDetails()">Submit</button>
 	<br>
 	<br>
 	</div>

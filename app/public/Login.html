@@ -1,5 +1,77 @@
 <div class="container-fluid" ng-controller="LoginController">
-	<div class="row">
-		<h2>Login Screen</h2>
+	<div class="row mt-6">
+			
+	<div class="col-md-6 col-xs-12 col-sm-12 col-md-offset-3 mt-5 my-5 pt-4 py-4">
+		<div class="flip-box">
+		<div class="flip-box-inner" id="flippanel">
+		<div class="flip-box-front">
+		<div class="panel panel-success">
+		  <div class="panel-heading text-center"><h4>Start your session</h4></div>
+		  <div class="panel-body">
+				<form class="form-horizontal">
+				
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Username:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="username" type="text" placeholder="Username">
+					</div>
+				  </div>
+				  
+				  <div class="form-group mt-5"  id="psfld">
+					<label class="col-sm-2 control-label">Password:</label>
+					<div class="col-sm-10">
+					 <div class="input-group">
+					  <input id="password" type="password" class="form-control" name="password" placeholder="Password">
+					   <span class="input-group-addon" ng-click="showHidePassword()"><i class="glyphicon glyphicon-eye-open" id="togglcls"></i></span>
+					</div>
+					</div>
+				  </div>
+				  
+				  <div class="form-group text-center mt-5">
+					<button type="button" class="btn btn-success" [routerLink]="['/dashboard']" routerLinkActive="router-link-active">Login</button>
+				  </div>
+				  
+				  <div class="col-md-6 pull-right text-right">
+					<a  ng-click="forgotpassword(180)">Forgot password?</a>
+				  </div>
+				  
+				</form>
+		  </div>
+		  </div>
+		  </div>
+		  <div class="flip-box-back">
+			  <div class="panel panel-warning">
+		  <div class="panel-heading text-center"><h4>Forgot Password?</h4></div>
+		  <div class="panel-body">
+				<form class="form-horizontal">
+				
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Username:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="username" type="text" placeholder="Username">
+					</div>
+				  </div>
+
+				  <div class="form-group mt-5">
+					<label class="col-sm-2 control-label">Email:</label>
+					<div class="col-sm-10">
+					  <input class="form-control" id="email" type="email" placeholder="Email">
+					</div>
+				  </div>
+				  <div class="form-group text-center mt-5">
+					<button type="button" ng-click="forgotpassword(360)" class="btn btn-warning">Cancel</button>
+					&nbsp;<button type="button" class="btn btn-success">Submit</button>
+				  </div>
+				  <div class="form-group text-center mt-5">
+					
+				  </div>
+				  
+				</form>
+		  </div>
+		  </div>
+			</div>
+		</div>
+		</div>
+    </div>
 	</div>
 </div>
