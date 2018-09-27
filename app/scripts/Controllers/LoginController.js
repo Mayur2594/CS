@@ -24,6 +24,18 @@ angular.module('CSApp')
 			console.log(elm.classList)
 			document.getElementById("flippanel").style.transform = "rotateY("+degree+"deg)";
 	};
+	
+	$scope.authUser = function()
+	{
+			$http({
+			method  : 'POST',
+			url     : '/api/authUser',
+			data    : $scope.userDetails ,
+			headers : {'Content-Type': 'application/json'} 
+		}).then(function(response) {
+			console.log(response.data);
+		});
+	};
 		
 	
 	
