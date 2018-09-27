@@ -86,7 +86,7 @@ angular.module('CSApp')
 					$scope.errormsg = response.data.message;
 					(response.data.status === 1)
 					{
-						document.getElementById("sbmt").disabled = true;
+						//document.getElementById("sbmt").disabled = true;
 					}
 				});
 		};
