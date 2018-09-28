@@ -119,7 +119,6 @@ angular.module('CSApp')
 		 {
 			  var passeddata = {employeedetails:$scope.employee[0]}
 		 }
-			 $scope.employee[0].createdby ="gdhd73dbddbdj"
         Upload.upload({
             url: '/api/SaveEmployeesDetails',
             data: passeddata

@@ -1,0 +1,32 @@
+server start on 8085 port
+Connected successfully
+{ empid: '5bacc24733ea3a0984adabc8' }
+{ userid: '5bacc24733ea3a0984adabc8',
+  iat: 1538117244,
+  exp: 1538146044,
+  success: true }
+{ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YmFjYzI0NzMzZWEzYTA5ODRhZGFiYzgiLCJpYXQiOjE1MzgxMTcyNDQsImV4cCI6MTUzODE0NjA0NH0.uK1z-b1wZiFsQv0I-skMTf0d8CMNOZO82KCFAh0COjc',
+  username: 'mayur',
+  id: '5bacc24733ea3a0984adabc8',
+  role: 'Admin',
+  branchid: '5bacc18533ea3a0984adabc7' }
+{ empid: '5bacc24733ea3a0984adabc8' }
+{ userid: '5bacc24733ea3a0984adabc8',
+  iat: 1538117244,
+  exp: 1538146044,
+  success: true }
+{ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YmFjYzI0NzMzZWEzYTA5ODRhZGFiYzgiLCJpYXQiOjE1MzgxMTcyNDQsImV4cCI6MTUzODE0NjA0NH0.uK1z-b1wZiFsQv0I-skMTf0d8CMNOZO82KCFAh0COjc',
+  username: 'mayur',
+  id: '5bacc24733ea3a0984adabc8',
+  role: 'Admin',
+  branchid: '5bacc18533ea3a0984adabc7' }
+{ empid: '5bacc24733ea3a0984adabc8' }
+{ userid: '5bacc24733ea3a0984adabc8',
+  iat: 1538117244,
+  exp: 1538146044,
+  success: true }
+{ token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyaWQiOiI1YmFjYzI0NzMzZWEzYTA5ODRhZGFiYzgiLCJpYXQiOjE1MzgxMTcyNDQsImV4cCI6MTUzODE0NjA0NH0.uK1z-b1wZiFsQv0I-skMTf0d8CMNOZO82KCFAh0COjc',
+  username: 'mayur',
+  id: '5bacc24733ea3a0984adabc8',
+  role: 'Admin',
+  branchid: '5bacc18533ea3a0984adabc7' }

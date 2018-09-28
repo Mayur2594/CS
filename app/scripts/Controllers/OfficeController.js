@@ -90,7 +90,6 @@ angular.module('CSApp')
 		
 		$scope.SaveBranchDetails = function()
 		{
-			$scope.branchDetails[0].createdby = userid
 		$http({
 			method  : 'POST',
 			url     : '/api/SaveBranchDetails/',
