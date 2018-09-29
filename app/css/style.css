@@ -223,3 +223,8 @@ mt-5
   display:none;
 }
 
+.text-bold
+{
+	font-size:18px !important;
+	font-weight:bold !important;
+}
