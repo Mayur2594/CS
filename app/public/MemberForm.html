@@ -1,4 +1,11 @@
-<div class="container" ng-controller="MembersController">
+<script>
+function readURL(input) {
+        if (input.files && input.files[0]) {
+		angular.element(document.getElementById('memberform')).scope().PassFileValue(input.files);
+        }
+    }
+</script>
+<div class="container" id="memberform" ng-controller="MembersController">
 <form>
 	<div class="col-md-12 col-xs-12"><legend>Basic Details</legend></div>
 	<div class="col-md-3 col-xs-12">
@@ -149,13 +156,16 @@
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="photo">Photo:</label>
-			<input type="file" id="photo" placeholder="Photo" ng-model="membersDetails[0].documentsdetails.pic">
+			<button class="button btn btn-default" id="memberpic" type="file" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'"
+					ngf-accept="'image/*'" ngf-max-size="20MB" ngf-min-height="100" 
+					ngf-resize="{width: 100, height: 100}" ng-change="PassFileValue()">Choose file</button>
 		</div>
 	</div>
 	
 	<div class="col-md-3 col-xs-12">
 		<div class="row">
-				<img src="http://localhost:8083/imgs/img.jpg" class="img-responsive img-thumbnail" height="200" width="150"/>
+				 <img id="imgpanel" src="uploads/{{membersDetails[0].documentsdetails.pic}}"  height="200" width="150" />
+				<button class="imgbtn" ng-click="clear()">Clear</button>
 		</div>
 	</div>
 	

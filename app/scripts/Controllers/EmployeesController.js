@@ -1,17 +1,17 @@
 angular.module('CSApp')
 .controller('EmployeesController', ['$scope','$http','$route','$location','$window', 'Upload',function ($scope,$http,$route,$location,$window,Upload) {
 	
-	
-	$scope.RedirectToForm = function(redirectpath)
-	{
-		$location.path(redirectpath);
-	};
-	
 	var url = window.location.href;
 	var qparts = url.split("?");
 	var passvar = qparts[1];
 	
-	var userid = $window.localStorage["userid"];
+	$scope.RedirectToForm = function(redirectpath)
+	{
+		$location.search('')
+		$location.path(redirectpath);
+	};
+	
+	
 	
 		$scope.checkcurrpage=function(myValue){
 			
