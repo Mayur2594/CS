@@ -5,9 +5,9 @@ function readURL(input) {
         }
     }
 </script>
-<div class="container" id="memberform" ng-controller="MembersController">
-<form>
-	<div class="col-md-12 col-xs-12"><legend>Basic Details</legend></div>
+<div class="container" id="memberform" ng-controller="MembersController" >
+<form name="memdetails" ng-init="GetMembersDetails()">
+	<div class="col-md-12 col-xs-12"><legend>Basic Details<h4 class="pull-right text-danger">{{errormsg}}</h4></span></legend></div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="firstname">First Name:</label>
@@ -45,21 +45,21 @@ function readURL(input) {
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="mobile1">Mobile No.:</label>
-			<input type="number" class="form-control" id="mobile1" placeholder="Mobile No."  ng-model="membersDetails[0].contactdetails.mobile1">
+			<input type="text" class="form-control" id="mobile1" placeholder="Mobile No."  ng-model="membersDetails[0].contactdetails.mobile1" ng-blur="VerifyrequiredFieldsInMembers(membersDetails[0].contactdetails.mobile1,'Mobile')">
 		</div>
 	</div>
 	
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="mobile2">Alt. Mobile No.:</label>
-			<input type="number" class="form-control" id="mobile2"  placeholder="Alt. Mobile No."  ng-model="membersDetails[0].contactdetails.mobile2">
+			<input type="text" class="form-control" id="mobile2"  placeholder="Alt. Mobile No."  ng-model="membersDetails[0].contactdetails.mobile2">
 		</div>
 	</div>
 	
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="email">Email:</label>
-			<input type="email" class="form-control" id="email"  placeholder="Email" ng-model="membersDetails[0].contactdetails.email">
+			<input type="email" class="form-control" id="email"  placeholder="Email" ng-model="membersDetails[0].contactdetails.email" ng-blur="VerifyrequiredFieldsInMembers(membersDetails[0].contactdetails.email,'Email')">
 		</div>
 	</div>
 	<div class="col-md-12 col-xs-12"><legend>Address Details</legend></div>
@@ -139,18 +139,18 @@ function readURL(input) {
 		</div>
 	</div>
 	
-		<div class="col-md-12 col-xs-12"><legend>Document Details</legend></div>
+		<div class="col-md-12 col-xs-12"><legend>Document Details<h4 class="pull-right text-danger">{{errormsg}}</h4></span></legend></div>
 		
 		<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="aadhaar">Aadhaar card No.:</label>
-			<input type="text" class="form-control" id="aadhaar" placeholder="Aadhaar card No." ng-model="membersDetails[0].documentsdetails.aadhaar">
+			<input type="text" class="form-control" id="aadhaar" placeholder="Aadhaar card No." ng-model="membersDetails[0].documentsdetails.aadhaar" ng-blur="VerifyrequiredFieldsInMembers(membersDetails[0].documentsdetails.aadhaar,'Aadhaar card No')">
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="pan">Pan No.:</label>
-			<input type="text" class="form-control" id="pan" placeholder="Pan No." ng-model="membersDetails[0].documentsdetails.pan">
+			<input type="text" class="form-control" id="pan" placeholder="Pan No." ng-model="membersDetails[0].documentsdetails.pan" ng-blur="VerifyrequiredFieldsInMembers(membersDetails[0].documentsdetails.pan,'Pan No')">
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-12">
@@ -180,33 +180,27 @@ function readURL(input) {
 			<input type="text" class="form-control" id="referred" placeholder="Referred By" ng-model="membersDetails[0].refredby">
 		</div>
 	</div>
-	
+	<div ng-controller="MastersController" >
 	<div class="col-md-3 col-xs-12">
-		<div class="form-group">
+		<div class="form-group" ng-init="ListBranchs()">
 			<label for="branch">Branch:</label>
-			<select class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch">
-				<option value="" selected disabled>Branch</option>
-			</select>
+			<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="area">Area:</label>
-			<select class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid">
-				<option value="" selected disabled>Area</option>
-			</select>
+			<input type="text" class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)">
 		</div>
 	</div>
 	
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="group">Group:</label>
-			<select class="form-control" id="group" placeholder="Area" ng-model="membersDetails[0].group">
-				<option value="" selected disabled>Group</option>
-			</select>
+			<input type="text" class="form-control" id="group" placeholder="Group" ng-model="membersDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" >
 		</div>
 	</div>
-	
+	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="depositeamt">Deposit Amount:</label>
@@ -226,7 +220,7 @@ function readURL(input) {
 	
 	<br>
 	<br>
-	<button class="btn btn-warning">Cancel</button>&nbsp;&nbsp;<button type="submit" class="btn btn-primary">Submit</button>
+	<button class="btn btn-warning" ng-click="RedirectToForm('/MembersDetails')">Cancel</button>&nbsp;&nbsp;<button id="sbmt" class="btn btn-primary" ng-click="SaveMembersDetails()">Submit</button>
 	<br>
 	<br>
 	</div>

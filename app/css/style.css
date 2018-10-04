@@ -228,3 +228,16 @@ mt-5
 	font-size:18px !important;
 	font-weight:bold !important;
 }
+.mt--1
+{
+	margin-top:-3rem !important;
+}
+.mt-1
+{
+	margin-top:1.6rem !important;
+}
+.ml-2
+{
+	margin-left:1rem !important;
+}
+

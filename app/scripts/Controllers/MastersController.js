@@ -239,6 +239,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.groupDetails = response.data;
+			console.log($scope.groupDetails)
 		});
 		};
 			

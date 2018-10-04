@@ -55,14 +55,12 @@ angular.module('CSApp')
 			};
 	
 	 $scope.clear = function () {
-		document.getElementById('imgpanel').src = null;
+		 angular.element("input[type='file']").val(null);
+		document.getElementById("imgpanel").src = '';
 	};
 	
 	
-	
-	
-	
-	
+		  
 	$scope.ListEmployees = function()
 		{
 			$http({
@@ -84,9 +82,13 @@ angular.module('CSApp')
 				headers : {'Content-Type': 'application/json'} 
 				}).then(function(response) {
 					$scope.errormsg = response.data.message;
-					(response.data.status === 1)
+					if(response.data.status === 1)
 					{
-						//document.getElementById("sbmt").disabled = true;
+						document.getElementById("sbmt").disabled = true;
+					}
+					else(response.data.status === 1)
+					{
+						document.getElementById("sbmt").disabled = false;
 					}
 				});
 		};
@@ -108,6 +110,21 @@ angular.module('CSApp')
 		};
 		
 		
+		$scope.DeleteEmployeesDetails = function(empid)
+	{
+		var yes = confirm('Are yuo sure? \n Record will never get you back after delete it')
+				if(yes)
+				{
+					$http({
+						  method: 'DELETE'
+						  , url: '/api/DeleteEmployeesDetails/'+empid
+						  , dataType: 'jsonp'
+						}).then(function (response) {
+						alert(response.data.message);
+						$scope.ListEmployees();
+					});
+				}
+	}
 	
 	
 	$scope.SaveEmployeeDetails = function()

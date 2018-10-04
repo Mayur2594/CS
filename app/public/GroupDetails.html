@@ -1,10 +1,26 @@
 <div class="container-fluid" ng-controller="MastersController">
-	<div class="row" ng-init="ListBranchs()">
-		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary" data-toggle="modal" data-target="#ModalPopup">Add New</button></div>
-		<div class="col-md-3 col-sm-9 col-xs-9 pull-right">
+	<div class="row">
+		<div class="col-md-6 col-sm-6 col-xs-5  mt--1"><h3 class="h3-responsive">Groups Details</h3></div>
+		<div class="col-md-3 col-sm-6 col-xs-7 pull-right">
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search" ng-model="search.values">
 			</div>
+		</div>
+	</div>
+
+
+	<div class="row">
+		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary" data-toggle="modal" data-target="#ModalPopup">Add New</button></div>
+		<div class="col-md-2 col-xs-4 pull-right">
+							<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
+													  <b>  {{currentPage+1}} / {{numberOfPages()}} </b>
+													  <input type='number' min='1' max='{{maxpage}}' ng-change='checkcurrpage(myValue)' style='width:35%' class="hidden-xs" ng-model='myValue'>
+														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= groupsList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
+		</div>
+		
+			<div class="col-md-2 col-xs-4 pull-right"><select class="form-control" ng-model="pageSize" ng-options="obj.value as obj.name for obj in recordsdisplay">
+			<option value="" selected disabled>Record to display</option>
+		</select>
 		</div>
 	</div>
 	
@@ -51,37 +67,18 @@
 	</div>
 	
 	
+		<div class="row mt-1">
 		<div class="table-responsive" ng-init="ListGroups()">
 			<table class="table table-bordered table-striped">
 				<thead>
-					<tr>
-						<td class="bg-warning pageheading" colspan="2">
-							<!-- <label class="label-controller ">Group`s Details</label> -->
-						</td>
-						<td class="pageheading" colspan="4">
-							
-							<div class="col-md-3 col-xs-8 pull-right">
-							<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
-													  <b>  {{currentPage+1}} / {{numberOfPages()}} </b>
-													  <input type='number' min='1' max='{{maxpage}}' ng-change='checkcurrpage(myValue)' style='width:35%' ng-model='myValue'>
-														<button style='border:none;background:transparent;color:black' class='glyphicon glyphicon-chevron-right' ng-disabled='currentPage >= groupsList.length/pageSize - 1' ng-click='currentPage=currentPage+1'></button>
-														</div>
-														
-														<div class="col-md-2 col-xs-4 pull-right"><select class="form-control" ng-model="pageSize" ng-options="obj.value as obj.name for obj in recordsdisplay">
-								<option value="" selected disabled>Record to display</option>
-							</select>
-							</div>
-						</td>
-					</tr>
-				</thead>
-				<tr>
 					<th>#</th>
 					<th>Group</th>
 					<th>Area</th>
 					<th>Branch</th>
 					<th>Group Head</th>
 					<th>Action</th>
-				</tr>
+				</thead>
+				
 				<tbody>
 					<tr ng-repeat="data in groupsList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 					<td>{{$index +1}}</td>
@@ -93,5 +90,6 @@
 					</tr>
 				</tbody>
 			</table>
+		</div>
 		</div>
 </div>
