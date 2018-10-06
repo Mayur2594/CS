@@ -84,6 +84,10 @@ angular.module('CSApp', ['ngSanitize','ngRoute','ngResource','ui.bootstrap','ngF
         templateUrl : "public/MemberForm.html",
 		controller:"MembersController"
     })
+	.when("/AccountForm", {
+        templateUrl : "public/AccountForm.html",
+		controller:"MembersController"
+    })
 	.otherwise({
 		  redirectTo: ''
 		});

@@ -171,9 +171,40 @@ angular.module('CSApp')
         }); 
 	};
 		
-		$scope.RedirectTomembersform = function(memid)
+	
+	
+	/* MEMBERS ACCOUNTS DETAILS */
+	
+	
+		$scope.getMembersAccounts = function(memberid)
+		{
+			$scope.selectedmemberid = memberid;
+			$http({
+              method: 'GET'
+              , url: '/api/getMembersAccounts/'+memberid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.membersACDetails = response.data;
+		});
+			
+		};
+	
+	
+	
+	
+	$scope.RedirectTomembersform = function(rdpage,memid)
 	{
-		$location.path('/MemberForm/').search(memid);
+		$location.path(rdpage).search(memid);
+	}
+	
+	$scope.RedirectTomembersACform = function(rdpage,memid)
+	{
+		
+		var isitOpen = $('#AccountsDetails').is(':visible');
+		if(isitOpen)
+			var callfunc = setInterval(function(){ $location.path(rdpage).search(memid); }, 3000);
+			 clearInterval(callfunc) 
+		
 	}
 	
 	
