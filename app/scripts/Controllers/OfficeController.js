@@ -191,6 +191,11 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.accountPlans = response.data;
+			console.log($scope.accountPlans)
+			if($scope.memberAccounts)
+			{
+				$scope.memberAccounts.accounttypeid = $scope.accountPlans[0].actypeid._id;
+			}
 		});
 		};
 		

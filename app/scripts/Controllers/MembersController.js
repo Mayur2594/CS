@@ -188,24 +188,17 @@ angular.module('CSApp')
 		});
 			
 		};
-	
-	
-	
-	
-	$scope.RedirectTomembersform = function(rdpage,memid)
-	{
-		$location.path(rdpage).search(memid);
-	}
-	
-	$scope.RedirectTomembersACform = function(rdpage,memid)
-	{
+
+		$scope.RedirectTomembersform = function(rdpage,memid)
+		{
+			$location.path(rdpage).search(memid);
+		};
 		
-		var isitOpen = $('#AccountsDetails').is(':visible');
-		if(isitOpen)
-			var callfunc = setInterval(function(){ $location.path(rdpage).search(memid); }, 3000);
-			 clearInterval(callfunc) 
-		
-	}
+		$scope.RedirectTomembersACform = function(rdpage,memid)
+		{
+			$location.path(rdpage).search(memid); 
+			location.reload();
+		};
 	
 	
 }]);
