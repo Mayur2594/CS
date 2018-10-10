@@ -68,7 +68,7 @@
 						<div class="col-md-3 col-xs-12">
 							<div class="form-group">
 								<label for="interestrate">Interest Rate (%):</label>
-								<input type="text" class="form-control" id="interestrate" placeholder="Interest Rate"  ng-model="accountPlans[0].interestrate"/>
+								<input type="text" class="form-control" id="interestrate" placeholder="Interest Rate"  ng-model="accountPlans[0].interestrate"  ng-blur="CalculateNetAmount()"/>
 							</div>
 						</div>
 						
@@ -84,13 +84,13 @@
 						<div class="col-md-3 col-xs-12">
 							<div class="form-group">
 								<label for="tenure">Tenure:</label>
-								<input type="text" class="form-control" id="tenure" placeholder="Tenure"  ng-model="accountPlans[0].tenure"/>
+								<input type="text" class="form-control" id="tenure" placeholder="Tenure"  ng-model="accountPlans[0].tenure"  ng-blur="CalculateNetAmount()"/>
 							</div>
 						</div>
 						<div class="col-md-3 col-xs-12">
 							<div class="form-group">
 								<label for="tenuretype">Tenure Type:</label>
-								<select class="form-control" id="tenuretype" ng-model="accountPlans[0].tenuretype" ng-options="obj for obj in ['Days','Months']">
+								<select class="form-control" id="tenuretype" ng-model="accountPlans[0].tenuretype" ng-options="obj for obj in ['Days','Months']"  ng-change="CalculateNetAmount()">
 									<option value="" selected disabled>SELECT</option>
 								</select>
 							</div>
@@ -102,7 +102,7 @@
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
 								<label for="basicamount">Basic Amount:</label>
-								<input type="text" class="form-control" id="basicamount" placeholder="Basic Amount"  ng-model="accountPlans[0].basicamount"/>
+								<input type="text" class="form-control" id="basicamount" placeholder="Basic Amount"  ng-model="accountPlans[0].basicamount" ng-blur="CalculateNetAmount()"/>
 							</div>
 						</div>
 						
@@ -114,18 +114,21 @@
 						</div>
 						</div>
 						<div class="row" ng-if="accountPlans[0].actypeid.guarantor ==='Yes' && accountPlans[0].actypeid.installments ==='Yes'">
+						
+						<div class="col-md-6 col-xs-12">
+							<div class="form-group">
+								<label for="loanamount">Loan Amount:</label>
+								<input type="text" class="form-control" id="loanamount" placeholder="Loan Amount"  ng-model="accountPlans[0].loanamount" ng-blur="CaculateEmi()"/>
+							</div>
+						</div>
+						
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
 								<label for="emiamount">EMI Amount:</label>
 								<input type="text" class="form-control" id="emiamount" placeholder="EMI Amount"  ng-model="accountPlans[0].emiamount"/>
 							</div>
 						</div>
-						<div class="col-md-6 col-xs-12">
-							<div class="form-group">
-								<label for="loanamount">Loan Amount:</label>
-								<input type="text" class="form-control" id="loanamount" placeholder="Loan Amount"  ng-model="accountPlans[0].loanamount"/>
-							</div>
-						</div>
+						
 						</div>
 						<div class="row" ng-controller="MastersController">
 							<div class="col-md-4 col-xs-12" ng-init="ListBranchs()">

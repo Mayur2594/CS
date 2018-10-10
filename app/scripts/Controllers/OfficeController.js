@@ -129,6 +129,17 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.accountTypes = response.data;
+			if($scope.memberAccounts)
+			{
+				if($scope.memberAccounts.planid)
+				{
+					
+				}
+				else
+				{
+					$scope.memberAccounts.interestrate = $scope.accountTypes[0].interestrate;
+				}
+			}
 		});
 		};
 		
@@ -195,6 +206,13 @@ angular.module('CSApp')
 			if($scope.memberAccounts)
 			{
 				$scope.memberAccounts.accounttypeid = $scope.accountPlans[0].actypeid._id;
+				$scope.memberAccounts.interestrate = $scope.accountPlans[0].interestrate;
+				$scope.memberAccounts.investedamount = $scope.accountPlans[0].basicamount;
+				$scope.memberAccounts.netamount = $scope.accountPlans[0].netamount;
+				$scope.memberAccounts.emi = $scope.accountPlans[0].emiamount;
+				$scope.memberAccounts.loanamount = $scope.accountPlans[0].loanamount;
+				$scope.memberAccounts.tenure = $scope.accountPlans[0].tenure;
+				$scope.memberAccounts.tenuretype = $scope.accountPlans[0].tenuretype;
 			}
 		});
 		};
@@ -230,6 +248,22 @@ angular.module('CSApp')
 			$scope.ListaccountPlans();
 		});
 		};
+	
+	
+		$scope.CalculateNetAmount = function()
+		{
+			if($scope.accountPlans[0].tenuretype === 'Days')
+			{
+				$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) + (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) * $scope.accountPlans[0].interestrate / 100));
+				$scope.accountPlans[0].netamount = String($scope.accountPlans[0].netamount);
+			}
+			else
+			{
+					
+				$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) + (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) * $scope.accountPlans[0].interestrate / 100));
+					$scope.accountPlans[0].netamount = String($scope.accountPlans[0].netamount);
+			}
+		}
 	
 	/* ---ACCOUNT PLANS */
 	
