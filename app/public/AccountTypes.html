@@ -75,6 +75,14 @@
 							</div>
 						</div>
 						</div>
+						<div class="row" ng-if="accountTypes[0].guarantor === 'Yes'">
+							<div class="col-md-4 col-xs-12">
+							<div class="form-group">
+								<label for="Guarantors">No. of Guarantors:</label>
+								<input type="text" class="form-control" id="Guarantors" placeholder="No. of Guarantors"  ng-model="accountTypes[0].noguarantors"/>
+							</div>
+						</div>
+						</div>
 					</form>
 				</div>
 				</div>

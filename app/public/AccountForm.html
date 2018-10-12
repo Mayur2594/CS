@@ -268,12 +268,66 @@ function readURL(input) {
 		</div>
 	</div>
 	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="strtdate">Frequency:</label>
+			<select class="form-control" ng-model="memberAccounts.frequency" ng-options="obj for obj in ['Daily','Monthly']">
+			<option value="" selected disabled>Select Frequency</option>
+			</select>
+		</div>
+	</div>
+	
 	<div class="col-md-3 col-xs-12" ng-if="accountPlans[0].actypeid.installments === 'No'">
 		<div class="form-group">
 			<label for="strtdate">Net Amount:</label>
 			<input type="text" class="form-control" ng-model="memberAccounts.netamount" placeholder="Net Amount"/>
 		</div>
 	</div>
+	
+	<div class="col-md-3 col-xs-12" ng-if="accountPlans[0].actypeid.installments === 'Yes'">
+		<div class="form-group">
+			<label for="emi">EMI:</label>
+			<input type="text" id="emi" class="form-control" ng-model="memberAccounts.emi" placeholder="EMI"/>
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="strtdate">Starting Date:</label>
+			<input type="date" id="strtdate" class="form-control" ng-model="memberAccounts.startingdate" ng-change="GetExpiryDate()"/>
+		</div>
+	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="exptdate">Expiry Date:</label>
+			<input type="date" id="exptdate" class="form-control" ng-model="memberAccounts.expirydate"/>
+		</div>
+	</div>
+	
+	<div class="col-md-12 col-xs-12 col-sm-12"  ng-if="accountPlans[0].actypeid.guarantor === 'Yes'">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<th>#</th>
+					<th>Member</th>
+					<th>Deposited Amount</th>
+					<th>Group - Area</th>
+					<th>Branch</th>
+				</thead>
+				<tbody>
+					<tr ng-repeat="obj in guaantorsarray">
+						<td>{{$index +1}}</td>
+						<td><input type="text" class="form-control" placeholder="Search Member" ng-model="obj.gaumembername"/></td>
+						<td>{{obj.gaumembername}}</td>
+						<td>{{obj.gaumembername}} - {{obj.gaumembername}}</td>
+						<td>{{obj.gaumembername}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
 	</div>
 	
   <div class="col-ms-12 col-xs-12 text-center">

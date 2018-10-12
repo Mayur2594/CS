@@ -205,6 +205,9 @@ angular.module('CSApp')
 			console.log($scope.accountPlans)
 			if($scope.memberAccounts)
 			{
+				
+				$scope.guaantorsarray = [];
+				
 				$scope.memberAccounts.accounttypeid = $scope.accountPlans[0].actypeid._id;
 				$scope.memberAccounts.interestrate = $scope.accountPlans[0].interestrate;
 				$scope.memberAccounts.investedamount = $scope.accountPlans[0].basicamount;
@@ -213,6 +216,14 @@ angular.module('CSApp')
 				$scope.memberAccounts.loanamount = $scope.accountPlans[0].loanamount;
 				$scope.memberAccounts.tenure = $scope.accountPlans[0].tenure;
 				$scope.memberAccounts.tenuretype = $scope.accountPlans[0].tenuretype;
+				$scope.memberAccounts.frequency = $scope.accountPlans[0].frequency;
+				if($scope.accountPlans[0].actypeid.noguarantors)
+				{
+					for(var i = 0 ; i < parseInt($scope.accountPlans[0].actypeid.noguarantors);i++)
+					{
+						$scope.guaantorsarray.push({guaname:''});
+					}
+				}
 			}
 		});
 		};

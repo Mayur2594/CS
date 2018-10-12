@@ -175,6 +175,21 @@ angular.module('CSApp')
 	
 	/* MEMBERS ACCOUNTS DETAILS */
 	
+	$scope.memberAccounts = {};
+	
+	$scope.GetExpiryDate = function()
+	{
+		if($scope.memberAccounts.tenuretype == "Days")
+		{
+			var days = $scope.memberAccounts.tenure;
+		}
+		if($scope.memberAccounts.tenuretype == "Months")
+		{
+			var days = $scope.memberAccounts.tenure * 30;
+		}
+		$scope.memberAccounts.expirydate = new Date($scope.memberAccounts.startingdate.getTime() + days*24*60*60*1000);
+	};
+	
 	
 		$scope.getMembersAccounts = function(memberid)
 		{
