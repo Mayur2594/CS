@@ -249,23 +249,130 @@ angular.module('CSApp')
 		});
 		};
 	
+				function calcumateemi(tenure,amount,interest){
+					var monthlyInterestRatio = (interest/100)/12;
+					var top = Math.pow((1+monthlyInterestRatio),tenure);
+					var bottom = top -1;
+					var sp = top / bottom;
+					var emi = ((amount * monthlyInterestRatio) * sp);
+					return Math.floor(emi);
+				}
+				
+	
 	
 		$scope.CalculateNetAmount = function()
 		{
-			if($scope.accountPlans[0].tenuretype === 'Days')
+			
+			if($scope.accountPlans[0].actypeid.installments === 'Yes')
 			{
-				$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) + (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) * $scope.accountPlans[0].interestrate / 100));
-				$scope.accountPlans[0].netamount = String($scope.accountPlans[0].netamount);
+				if($scope.accountPlans[0].tenuretype === 'Days')
+				{
+					$scope.accountPlans[0].emiamount = String(calcumateemi($scope.accountPlans[0].tenure,$scope.accountPlans[0].loanamount,$scope.accountPlans[0].interestrate));
+				}
+				else
+				{
+					$scope.accountPlans[0].emiamount = String(calcumateemi(($scope.accountPlans[0].tenure * 30),$scope.accountPlans[0].loanamount,$scope.accountPlans[0].interestrate));
+				}
 			}
 			else
 			{
-					
-				$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) + (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) * $scope.accountPlans[0].interestrate / 100));
+				if($scope.accountPlans[0].tenuretype === 'Days')
+				{
+					$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) + (($scope.accountPlans[0].basicamount * $scope.accountPlans[0].tenure) * $scope.accountPlans[0].interestrate / 100));
 					$scope.accountPlans[0].netamount = String($scope.accountPlans[0].netamount);
+				}
+				else
+				{
+						
+					$scope.accountPlans[0].netamount =  (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) + (($scope.accountPlans[0].basicamount * ($scope.accountPlans[0].tenure * 30)) * $scope.accountPlans[0].interestrate / 100));
+						$scope.accountPlans[0].netamount = String($scope.accountPlans[0].netamount);
+				}
 			}
 		}
 	
 	/* ---ACCOUNT PLANS */
+	
+	
+	/* EMI CACLULATOR */
+	
+	
+	 $scope.submit = function(){
+				
+				
+				function calcumateemi(tenure,amount,interest,month){
+					var monthlyInterestRatio = (interest/100)/12;
+					var top = Math.pow((1+monthlyInterestRatio),tenure);
+					var bottom = top -1;
+					var sp = top / bottom;
+					var emi = ((amount * monthlyInterestRatio) * sp);
+					return Math.floor(emi);
+				}
+				
+				function getInterest(tenure,amount,interest,month){
+					var inte = (interest/100)
+				}
+					 
+					 
+					 if($scope.entry.tenuretype === 'Days')
+					 {
+						 var tenureType  = 'Day'
+					 }
+					 if($scope.entry.tenuretype === 'Months')
+					 {
+						 var tenureType  = 'Month'
+					 }
+					 
+					  var vals = $scope.entry, i;
+					  $scope.months =[];
+					  $("#emiTable").show("slow");
+					  for(i = 0; i < vals.tenure; i++){
+							var m =  tenureType+'-'+(i+ 1);
+							var j = (i+1)
+					  
+							emicalc = calcumateemi(vals.tenure, vals.amount, vals.interest, i);
+							interestTotal = emicalc * vals.tenure;
+							$scope.months.push({
+								sno : m,
+								emi : emicalc, // emicalc,
+								balance: Math.floor(interestTotal - (emicalc*j))
+							});
+						}
+						
+						
+						
+				$scope.inter = (calcumateemi($scope.entry.tenure, $scope.entry.amount, $scope.entry.interest, i) * $scope.entry.tenure) - $scope.entry.amount;
+				
+				$scope.paichargraph = [{'section':'Principle','amount':$scope.entry.amount},{'section':'Total Interest','amount':$scope.inter}]
+              
+			  
+			  var chart = AmCharts.makeChart( "chartdiv", {
+				  "type": "pie",
+				  "theme": "light",
+				  "dataProvider":$scope.paichargraph,
+				  "valueField": "amount",
+				  "titleField": "section",
+				   "balloon":{
+				   "fixedPosition":true
+				  },
+				   'labelsEnabled': true,
+					  'autoMargins': false,
+					  'marginTop':0,
+					  'marginBottom': 0,
+					  'marginLeft': 0,
+					  'marginRight':0,
+					  'pullOutRadius': 0
+				} );
+			  
+			  
+          };
+	
+	
+	
+	/* EMI CACLULATOR */
+	
+	
+	
+	
 	
 	/* REFERANCE */
 		$scope.ListAcTypesRef = function()
