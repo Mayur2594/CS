@@ -109,6 +109,18 @@ angular.module('CSApp')
 		};
 		
 		
+		$scope.ListGuarantors = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListGuarantors/'+$scope.membersDetails[0]._id+'/'+$scope.membersDetails[0].depositeamount
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.guaMembersList = response.data;
+		});
+		};
+		
+		
 		$scope.GetMembersDetails = function()
 		{
 			if(passvar)
@@ -160,7 +172,8 @@ angular.module('CSApp')
             data: passeddata
         }).then(function (resp) {
             //alert('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            alert('Record inserted successfully');
+			alert(resp.data.message);
+            //alert('Record inserted successfully');
 			$scope.RedirectToForm('/MembersDetails');
         }, function (resp) {
             //alert('Error status: ' + resp.status);
