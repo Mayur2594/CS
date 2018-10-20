@@ -23,7 +23,7 @@
 		</div>
 		
 	</div>
-	
+	<div class="loader"></div>
 		<div class="row mt-1">
 		<div class="table-responsive" ng-init="ListMembers()">
 			<table class="table table-bordered table-striped">
@@ -82,6 +82,15 @@
 												<th>Interest Rate (%)</th>
 												<th>Amount</th>
 											</thead>
+											<tbody>
+												<tr ng-repeat="data in membersACDetails">
+													<td>{{$index +1}}</td>
+													<td>{{data._id}}</td>
+													<td>{{data.accounttypeid[0].accounttype}}</td>
+													<td>{{data.interestrate}}</td>
+													<td>{{(data.netamount | number:2) || (data.loanamount | number:2) || "0.00"}}</td>
+												</tr>
+											</tbody>
 										</table>
 									</div>
 							</div>

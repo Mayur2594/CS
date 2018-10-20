@@ -12,6 +12,19 @@ angular.module('CSApp')
 		$location.path(redirectpath);
 	};
 	
+	
+		$scope.RedirectTomembersform = function(rdpage,memid)
+		{
+			$location.path(rdpage).search(memid);
+		};
+		
+		$scope.RedirectTomembersACform = function(rdpage,memid)
+		{
+			$location.path(rdpage).search(memid); 
+			location.reload();
+		};
+	
+	
 	$scope.checkcurrpage=function(myValue){
 			
 			if(myValue == null || myValue == 0)
@@ -112,13 +125,15 @@ angular.module('CSApp')
 		$scope.ListGuarantors = function()
 		{
 			$http({
-              method: 'GET'
-              , url: '/api/ListGuarantors/'+$scope.membersDetails[0]._id+'/'+$scope.membersDetails[0].depositeamount
-              , dataType: 'jsonp'
-			}).then(function (response) {
-			$scope.guaMembersList = response.data;
-		});
+				method  : 'POST',
+				url     : '/api/ListGuarantors/',
+				data    : $scope.membersDetails[0],
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function (response) {
+				$scope.guaMembersList = response.data;
+			});
 		};
+		
 		
 		
 		$scope.GetMembersDetails = function()
@@ -131,8 +146,13 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.membersDetails = response.data;
+			$scope.memberAccounts = response.data
+			
 			$scope.membersDetails[0].dob = new Date($scope.membersDetails[0].dob)
 			$scope.membersDetails[0].startingdate = new Date($scope.membersDetails[0].startingdate)
+
+			$scope.memberAccounts[0].dob = new Date($scope.memberAccounts[0].dob)
+			$scope.memberAccounts[0].startingdate = new Date($scope.memberAccounts[0].startingdate)
 		});
 			}
 		};
@@ -188,19 +208,19 @@ angular.module('CSApp')
 	
 	/* MEMBERS ACCOUNTS DETAILS */
 	
-	$scope.memberAccounts = {};
+	//$scope.memberAccounts = [];
 	
 	$scope.GetExpiryDate = function()
 	{
-		if($scope.memberAccounts.tenuretype == "Days")
+		if($scope.memberAccounts[0].tenuretype == "Days")
 		{
-			var days = $scope.memberAccounts.tenure;
+			var days = $scope.memberAccounts[0].tenure;
 		}
-		if($scope.memberAccounts.tenuretype == "Months")
+		if($scope.memberAccounts[0].tenuretype == "Months")
 		{
-			var days = $scope.memberAccounts.tenure * 30;
+			var days = $scope.memberAccounts[0].tenure * 30;
 		}
-		$scope.memberAccounts.expirydate = new Date($scope.memberAccounts.startingdate.getTime() + days*24*60*60*1000);
+		$scope.memberAccounts[0].expirydate = new Date($scope.memberAccounts[0].startingdate.getTime() + days*24*60*60*1000);
 	};
 	
 	
@@ -216,17 +236,27 @@ angular.module('CSApp')
 		});
 			
 		};
-
-		$scope.RedirectTomembersform = function(rdpage,memid)
-		{
-			$location.path(rdpage).search(memid);
-		};
 		
-		$scope.RedirectTomembersACform = function(rdpage,memid)
+		
+		$scope.ListMembersAccounts = function()
 		{
-			$location.path(rdpage).search(memid); 
-			location.reload();
+			
+			$http({
+              method: 'GET'
+              , url: '/api/ListMembersAccounts/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.accountsList = response.data;
+			console.log($scope.accountsList);
+			$scope.pagination($scope.accountsList);
+		});
+			
 		};
+	
+		
+		
+		
+		
 	
 	
 }]);

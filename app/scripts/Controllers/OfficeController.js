@@ -196,37 +196,60 @@ angular.module('CSApp')
 		
 		$scope.getAccountPlansDetails = function(acplanid)
 		{
+			
+			
 			$http({
               method: 'GET'
               , url: '/api/getAccountPlansDetails/'+acplanid
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.accountPlans = response.data;
-			console.log($scope.accountPlans)
 			if($scope.memberAccounts)
 			{
 				
-				$scope.guaantorsarray = [];
+			
 				
-				$scope.memberAccounts.accounttypeid = $scope.accountPlans[0].actypeid._id;
-				$scope.memberAccounts.interestrate = $scope.accountPlans[0].interestrate;
-				$scope.memberAccounts.investedamount = $scope.accountPlans[0].basicamount;
-				$scope.memberAccounts.netamount = $scope.accountPlans[0].netamount;
-				$scope.memberAccounts.emi = $scope.accountPlans[0].emiamount;
-				$scope.memberAccounts.loanamount = $scope.accountPlans[0].loanamount;
-				$scope.memberAccounts.tenure = $scope.accountPlans[0].tenure;
-				$scope.memberAccounts.tenuretype = $scope.accountPlans[0].tenuretype;
-				$scope.memberAccounts.frequency = $scope.accountPlans[0].frequency;
+				$scope.memberAccounts[0].gourentorsdetails = [];
+				$scope.memberAccounts[0].accounttypeid = $scope.accountPlans[0].actypeid._id;
+				$scope.memberAccounts[0].interestrate = $scope.accountPlans[0].interestrate;
+				$scope.memberAccounts[0].investedamount = $scope.accountPlans[0].basicamount;
+				$scope.memberAccounts[0].netamount = $scope.accountPlans[0].netamount;
+				$scope.memberAccounts[0].emi = $scope.accountPlans[0].emiamount;
+				$scope.memberAccounts[0].loanamount = $scope.accountPlans[0].loanamount;
+				$scope.memberAccounts[0].tenure = $scope.accountPlans[0].tenure;
+				$scope.memberAccounts[0].tenuretype = $scope.accountPlans[0].tenuretype;
+				$scope.memberAccounts[0].frequency = $scope.accountPlans[0].frequency;
 				if($scope.accountPlans[0].actypeid.noguarantors)
 				{
 					for(var i = 0 ; i < parseInt($scope.accountPlans[0].actypeid.noguarantors);i++)
 					{
-						$scope.guaantorsarray.push({guaname:''});
+						$scope.memberAccounts[0].gourentorsdetails.push({gaumembername:''});
 					}
 				}
 			}
 		});
 		};
+		
+		
+		$scope.ListAnotherGuarantor = function(guaantorsarray)
+		{
+			$http({
+				method  : 'POST',
+				url     : '/api/ListAnotherGuarantor/',
+				data    : {guarantors:guaantorsarray,memberdetails:$scope.membersDetails[0]},
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function(response) {
+				$scope.guaMembersList = response.data;
+			});
+		};
+		
+		$scope.Clearfield =function(index)
+		{
+			$scope.memberAccounts[0].gourentorsdetails.splice(index, 1);
+			$scope.ListAnotherGuarantor($scope.memberAccounts[0].gourentorsdetails);
+			$scope.memberAccounts[0].gourentorsdetails.push({gaumembername:''});
+		};
+		
 		
 		
 		$scope.DeleteACPlanDetails = function(acplanid)
@@ -300,6 +323,8 @@ angular.module('CSApp')
 				}
 			}
 		}
+	
+	
 	
 	/* ---ACCOUNT PLANS */
 	
@@ -380,6 +405,29 @@ angular.module('CSApp')
 	
 	
 	/* EMI CACLULATOR */
+	
+	
+	
+	/* MEMBERS ACCOUNTS DETAILS */
+	
+	
+	$scope.SaveMembersACDetails = function(membersACDetails)
+		{
+			$http({
+				method  : 'POST',
+				url     : '/api/SaveMembersACDetails/',
+				data    : membersACDetails[0],
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function (response) {
+					alert(response.data.message);
+					$scope.RedirectToForm('/MembersDetails')
+			});
+		};
+		
+	
+	
+	
+	/* MEMBERS ACCOUNTS DETAILS */
 	
 	
 	
