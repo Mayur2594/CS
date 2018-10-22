@@ -42,7 +42,7 @@
 						<td>{{$index + 1}}</td>
 						<td>{{data.firstname}} {{data.midname}} {{data.lastname}}</td>
 						<td>{{data.contactdetails.mobile1}}</td>
-						<td>{{data.branch.branchname}}</td>
+						<td>{{data.branch[0].branchname}}</td>
 						<td>{{data.doj | date:'dd/MM/yyyy'}}</td>
 						<td>{{data.role}}</td>
 						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectToEmployeeform(data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteEmployeesDetails(data._id)">Delete</button></td>

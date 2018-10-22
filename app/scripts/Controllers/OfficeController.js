@@ -451,5 +451,14 @@ angular.module('CSApp')
 		
 	/* REFERANCE */
 	
+	$scope.selectedObj = function(actypeid)
+	{
+		$scope.accountTypesref.map(function(value)
+		{
+			if(value.id === actypeid)
+				$scope.accountPlans[0].interestrate = value.interestrate;
+		})
+	}
+	
 });
 	

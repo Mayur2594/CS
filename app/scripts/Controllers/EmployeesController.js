@@ -103,8 +103,9 @@ angular.module('CSApp')
 				  , dataType: 'jsonp'
 				}).then(function (response) {
 					$scope.employee = response.data;
-					$scope.employee[0].dob = new Date($scope.employee[0].dob)
-					$scope.employee[0].doj = new Date($scope.employee[0].doj)
+					$scope.employee[0].branch = $scope.employee[0].branch[0];
+					$scope.employee[0].dob = new Date($scope.employee[0].dob);
+					$scope.employee[0].doj = new Date($scope.employee[0].doj);
 				});
 			}
 		};
