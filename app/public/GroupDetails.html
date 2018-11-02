@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="MastersController">
-	<div class="row">
+	<div class="row"  ng-init="ListGroups();ListBranchs();">
 		<div class="col-md-6 col-sm-6 col-xs-5  mt--1"><h3 class="h3-responsive">Groups Details</h3></div>
 		<div class="col-md-3 col-sm-6 col-xs-7 pull-right">
 			<div class="form-group">
@@ -68,7 +68,7 @@
 	
 	
 		<div class="row mt-1">
-		<div class="table-responsive" ng-init="ListGroups()">
+		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<th>#</th>

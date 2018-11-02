@@ -128,7 +128,7 @@
 						<td>{{data.branchname}}</td>
 						<td>{{data.contactdetails.contact1}} <span ng-if="(data.contactdetails.contact2 != '' || data.contactdetails.contact2) != null">&nbsp;/&nbsp;</span>{{data.contactdetails.contact2}}</td>
 						<td>{{data.managerdetails.name}}</td>
-						<td>{{data.createdby}}</td>
+						<td>{{data.createdby[0].username}}</td>
 						<td class="text-center"><button class="btn btn-warning" ng-click="getBranchDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteBranch(data._id)">Delete</button></td>
 					</tr>
 				</tbody>

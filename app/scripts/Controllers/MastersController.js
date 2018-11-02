@@ -162,7 +162,6 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.areasList = response.data;
-			console.log($scope.areasList)
 			$(".loader").fadeOut("slow");
 			$scope.pagination($scope.areasList);
 		});
@@ -177,6 +176,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.areaDetails = response.data;
+			$scope.areaDetails[0].branchid = $scope.areaDetails[0].branchid._id;
 		});
 		};
 			

@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="MastersController">
-	<div class="row">
+	<div class="row"  ng-init="ListAreas();ListBranchs();">
 		<div class="col-md-6 col-sm-6 col-xs-5  mt--1"><h3 class="h3-responsive">Areas Details</h3></div>
 		<div class="col-md-3 col-sm-6 col-xs-7 pull-right">
 			<div class="form-group">
@@ -46,7 +46,10 @@
 						</div>
 						<div class="form-group">
 							<label for="branch">Branch:</label>
-							<input type="text" class="form-control" id="branch" uib-typeahead="obj as obj.branchname for obj in branchList" placeholder="Branch" ng-model="areaDetails[0].branchid">
+							<!-- <input type="text" class="form-control" id="branch" uib-typeahead="obj as obj.branchname for obj in branchList" placeholder="Branch" ng-model="areaDetails[0].branchid"> -->
+							<select class="form-control" id="branch" ng-options="obj._id as obj.branchname for obj in branchList" ng-model="areaDetails[0].branchid">
+								<option value="" selected disabled>Select Branch</option>
+							</select>
 						</div>
 						
 						<div class="form-group">
@@ -64,7 +67,7 @@
 	</div>
 	
 		<div class="row mt-1">
-		<div class="table-responsive" ng-init="ListAreas()">
+		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<th>#</th>
