@@ -239,7 +239,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.groupDetails = response.data;
-			console.log($scope.groupDetails)
+			$scope.groupDetails[0].branchid = response.data[0].branchid;
 		});
 		};
 			

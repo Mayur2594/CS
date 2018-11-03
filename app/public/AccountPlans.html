@@ -49,7 +49,7 @@
 							<div class="col-md-6 col-xs-12">
 							<div class="form-group">
 								<label for="accounttype">Account Type:</label>
-								<select class="form-control" ng-model="accountPlans[0].actypeid" ng-options="obj.id as obj.accounttype for obj in accountTypesref" ng-change="selectedObj(accountPlans[0].actypeid)">
+								<select class="form-control" ng-model="accountPlans[0].actypeid" ng-options="obj.id as obj.accounttype for obj in accountTypesref" ng-change="getAccounttypesDetails(accountPlans[0].actypeid)">
 								<option value="" selected disabled>Select Account Type</option>
 								</select>
 								<!-- <input class="form-control" ng-model="accountPlans[0].actypeid" uib-typeahead="obj as obj.accounttype for obj in accountTypesref" typeahead-on-select="accountPlans[0].interestrate = accountPlans[0].actypeid.interestrate" placeholder="Select Account Type"> -->
@@ -101,7 +101,7 @@
 						</div>
 						
 						
-						<div class="row" ng-if="accountPlans[0].actypeid.guarantor !='Yes' && accountPlans[0].actypeid.installments !='Yes'">
+						<div class="row" ng-if="accountTypes[0].guarantor !='Yes' && accountTypes[0].installments !='Yes'">
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
 								<label for="basicamount">Basic Amount:</label>
@@ -116,7 +116,7 @@
 							</div>
 						</div>
 						</div>
-						<div class="row" ng-if="accountPlans[0].actypeid.guarantor ==='Yes' && accountPlans[0].actypeid.installments ==='Yes'">
+						<div class="row" ng-if="accountTypes[0].guarantor ==='Yes' && accountTypes[0].installments ==='Yes'">
 						
 						<div class="col-md-6 col-xs-12">
 							<div class="form-group">
@@ -146,11 +146,11 @@
 							</div>
 							</div>
 							
-							<div class="col-md-4 col-xs-12">
+							<div class="col-md-4 col-xs-12" ng-if="ListOfAreas.length > 0">
 							<div class="form-group">
 								<label for="areaid">Area:</label>
 								
-								<select class="form-control" ng-model="accountPlans[0].areaid" ng-options="obj._id as obj.areaname for obj in ListOfAreas" ng-change="accountPlans[0].group = null;ListGroupsOnArea(accountPlans[0].areaid)" id="area" ng-disabled="(accountPlans[0].branch == null || accountPlans[0].branch == undefined)">
+								<select class="form-control" ng-model="accountPlans[0].areaid" ng-options="obj._id as obj.areaname for obj in ListOfAreas" ng-change="accountPlans[0].group = null;ListGroupsOnArea(accountPlans[0].areaid)" id="area">
 									<option value="" selected disabled>select Area</option>
 								</select>
 								
@@ -158,12 +158,12 @@
 							</div>
 							</div>
 							
-							<div class="col-md-4 col-xs-12">
+							<div class="col-md-4 col-xs-12" ng-if="ListOfGroups.length > 0">
 							<div class="form-group">
 								<label for="group">Group:</label>
 								
-								<select>
-									<option value="" selected disabled></option>
+								<select class="form-control" id="group"  ng-model="accountPlans[0].group" ng-options="obj._id  as obj.groupname for obj in ListOfGroups">
+								<option value="" selected disabled>Select Group</option>
 								</select>
 								
 								<!-- <input class="form-control" ng-model="accountPlans[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" placeholder="Select Group" ng-disabled="(accountPlans[0].areaid == null || accountPlans[0].areaid == undefined)" id="group"> -->

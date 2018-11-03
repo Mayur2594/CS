@@ -93,7 +93,7 @@
 						<td>{{$index +1}}</td>
 						<td>{{data.name}}</td>
 						<td><span ng-if="data.approval === 1">Approved</span><span ng-if="data.approval === 0">Not Approved</span></td>
-						<td>{{data.createdby}}</td>
+						<td>{{data.createdby[0].username}}</td>
 						<td class="text-center"><button class="btn btn-warning" ng-click="getTermsDetails(data._id)" data-toggle="modal" data-target="#ModalPopup">Edit</button> | <button class="btn btn-danger" ng-click="DeleteTermCondition(data._id)">Delete</button></td>
 					</tr>
 				</tbody>

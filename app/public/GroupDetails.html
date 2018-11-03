@@ -46,12 +46,22 @@
 						</div>
 						<div class="form-group">
 							<label for="branch">Branch:</label>
-							<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="groupDetails[0].branchid" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
+							<!-- <input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="groupDetails[0].branchid" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)"> -->
+							
+							<select class="form-control" id="branch"  ng-model="groupDetails[0].branchid" ng-options="obj._id as obj.branchname for obj in branchList" ng-change="ListAreasOnBranch(groupDetails[0].branchid)">
+								<option value="" selected disabled>Select Branch</option>
+							</select>
+							
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group" ng-if="ListOfAreas.length > 0">
 							<label for="area">Area:</label>
-							<input type="text" class="form-control" id="area" placeholder="Area" ng-model="groupDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas">
+							<!-- <input type="text" class="form-control" id="area" placeholder="Area" ng-model="groupDetails[0].areaid" uib-typeahead=""> -->
+							
+							<select class="form-control" id="area"  ng-model="groupDetails[0].areaid" ng-options="obj._id  as obj.areaname for obj in ListOfAreas">
+								<option value="" selected disabled>Select Area</option>
+							</select>
+							
 						</div>
 						
 						

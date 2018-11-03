@@ -1,5 +1,5 @@
 <div class="container-fluid" ng-controller="MastersController">
-	<div class="row">
+	<div class="row"  ng-init="ListEvents();ListBranchs();">
 		<div class="col-md-6 col-sm-6 col-xs-5  mt--1"><h3 class="h3-responsive">Events Details</h3></div>
 		<div class="col-md-3 col-sm-6 col-xs-7 pull-right">
 			<div class="form-group">
@@ -67,20 +67,34 @@
 						<div class="col-md-4 col-xs-12">
 							<div class="form-group">
 								<label for="branch">Branch:</label>
-								<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="eventsDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
+								<!-- <input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="eventsDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)"> -->
+								
+								<select class="form-control" id="branch"  ng-model="eventsDetails[0].branch" ng-options="obj._id as obj.branchname for obj in branchList" ng-change="ListAreasOnBranch(eventsDetails[0].branch)">
+								<option value="" selected disabled>Select Branch</option>
+							</select>
+								
 							</div>
 						</div>
-						<div class="col-md-4 col-xs-12">
+						<div class="col-md-4 col-xs-12" ng-if="ListOfAreas.length > 0">
 							<div class="form-group">
 								<label for="area">Area:</label>
-								<input type="text" class="form-control" id="area" placeholder="Area" ng-model="eventsDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)">
+								<!-- <input type="text" class="form-control" id="area" placeholder="Area" ng-model="eventsDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)"> -->
+								
+								<select class="form-control" id="area"  ng-model="eventsDetails[0].areaid" ng-options="obj._id  as obj.areaname for obj in ListOfAreas" ng-change="ListGroupsOnArea(eventsDetails[0].areaid)">
+								<option value="" selected disabled>Select Area</option>
+								</select>
+								
 							</div>
 						</div>
 						
-						<div class="col-md-4 col-xs-12">
+						<div class="col-md-4 col-xs-12" ng-if="ListOfGroups.length > 0">
 							<div class="form-group">
 								<label for="group">Group:</label>
-								<input type="text" class="form-control" id="group" placeholder="Group" ng-model="eventsDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" >
+								<!-- <input type="text" class="form-control" id="group" placeholder="Group" ng-model="eventsDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" > -->
+								
+								<select class="form-control" id="group"  ng-model="eventsDetails[0].group" ng-options="obj._id  as obj.groupname for obj in ListOfGroups">
+								<option value="" selected disabled>Select Group</option>
+								</select>
 							</div>
 						</div>
 						</div>
@@ -98,7 +112,7 @@
 	
 	
 		<div class="row mt-1">
-		<div class="table-responsive" ng-init="ListEvents()">
+		<div class="table-responsive">
 			<table class="table table-bordered table-striped">
 				<thead>
 					<th>#</th>
@@ -108,7 +122,7 @@
 					<th>Description</th>
 					<th>Action</th>
 				</thead>
-				<tbody ng-init="ListEvents()">
+				<tbody>
 						<tr ng-repeat="data in eventsList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 							<td>{{$index + 1}}</td>
 							<td>{{data.name}}</td>

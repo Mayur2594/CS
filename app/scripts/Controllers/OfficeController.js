@@ -140,6 +140,10 @@ angular.module('CSApp')
 					$scope.memberAccounts.interestrate = $scope.accountTypes[0].interestrate;
 				}
 			}
+			if($scope.accountPlans)
+			{
+				$scope.accountPlans[0].interestrate = $scope.accountTypes[0].interestrate;
+			}
 		});
 		};
 		
@@ -189,6 +193,7 @@ angular.module('CSApp')
 			}).then(function (response) {
 			$scope.ACPlanList = response.data;
 			$(".loader").fadeOut("slow");
+			console.log($scope.ACPlanList);
 			$scope.pagination($scope.ACPlanList);
 		});
 		};
@@ -297,7 +302,7 @@ angular.module('CSApp')
 		$scope.CalculateNetAmount = function()
 		{
 			
-			if($scope.accountPlans[0].actypeid.installments === 'Yes')
+			if($scope.accountTypes[0].installments === 'Yes')
 			{
 				if($scope.accountPlans[0].tenuretype === 'Days')
 				{
@@ -451,14 +456,7 @@ angular.module('CSApp')
 		
 	/* REFERANCE */
 	
-	$scope.selectedObj = function(actypeid)
-	{
-		$scope.accountTypesref.map(function(value)
-		{
-			if(value.id === actypeid)
-				$scope.accountPlans[0].interestrate = value.interestrate;
-		})
-	}
+	
 	
 });
 	
