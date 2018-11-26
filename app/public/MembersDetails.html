@@ -41,7 +41,7 @@
 						<td>{{$index + 1}}</td>
 						<td>{{data.firstname}} {{data.midname}} {{data.lastname}}</td>
 						<td>{{data.contactdetails.mobile1}}</td>
-						<td>{{data.branch.branchname}}</td>
+						<td>{{data.branch[0].branchname}}</td>
 						<td>{{data.documentsdetails.aadhaar}}</td>
 						<td>{{data.depositeamount}}</td>
 						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectTomembersform('/MemberForm/',data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteMember(data._id)">Delete</button> | <button class="btn btn-primary" ng-click="getMembersAccounts(data._id)" data-toggle="modal" data-target="#AccountsDetails">Accounts</button></td>
@@ -86,7 +86,7 @@
 												<tr ng-repeat="data in membersACDetails">
 													<td>{{$index +1}}</td>
 													<td>{{data._id}}</td>
-													<td>{{data.accounttypeid[0].accounttype}}</td>
+													<td>{{data.accounttypeid.accounttype}}</td>
 													<td>{{data.interestrate}}</td>
 													<td>{{(data.netamount | number:2) || (data.loanamount | number:2) || "0.00"}}</td>
 												</tr>

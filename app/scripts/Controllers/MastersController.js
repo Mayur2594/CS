@@ -358,12 +358,14 @@ angular.module('CSApp')
 		
 		$scope.ListAreasOnBranch = function(branchid)
 		{
+			console.log(branchid)
 			$http({
               method: 'GET'
               , url: '/api/ListAreasOnBranch/'+branchid
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.ListOfAreas = response.data;
+			console.log($scope.ListOfAreas);
 		});
 		};
 		

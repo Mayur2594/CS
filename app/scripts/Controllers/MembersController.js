@@ -117,6 +117,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.membersList = response.data;
+			console.log($scope.membersList);
 			$scope.pagination($scope.membersList);
 		});
 		};
@@ -147,7 +148,10 @@ angular.module('CSApp')
 			}).then(function (response) {
 			$scope.membersDetails = response.data;
 			$scope.memberAccounts = response.data
+			console.log($scope.memberAccounts);
 			
+			$scope.ListAreasOnBranch($scope.memberAccounts[0].branch[0]);
+			$scope.ListGroupsOnArea($scope.memberAccounts[0].areaid[0]);
 			$scope.membersDetails[0].dob = new Date($scope.membersDetails[0].dob)
 			$scope.membersDetails[0].startingdate = new Date($scope.membersDetails[0].startingdate)
 
@@ -233,6 +237,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.membersACDetails = response.data;
+			console.log($scope.membersACDetails);
 		});
 			
 		};
@@ -253,7 +258,47 @@ angular.module('CSApp')
 			
 		};
 	
+		/* REFERANCE FUNCTION---- */
 		
+		$scope.ListBranchs = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListBranchsforReferance/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.branchList = response.data;
+		});
+		};
+		
+		$scope.ListAreasOnBranch = function(branchid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAreasOnBranch/'+branchid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ListOfAreas = response.data;
+		});
+		};
+		
+		
+		$scope.ListGroupsOnArea = function(areaid)
+		{
+			if($scope.eventsDetails)
+			$scope.eventsDetails[0].group = null;
+		
+			$http({
+              method: 'GET'
+              , url: '/api/ListGroupsOnArea/'+areaid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.ListOfGroups = response.data;
+		});
+		};
+	
+	/* ----REFERANCE FUNCTION */
+	
 		
 		
 		

@@ -8,7 +8,6 @@
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-md-2 col-sm-3 col-xs-3"><button class="btn btn-primary" ng-click="RedirectToForm('/MemberForm')">Add New</button></div>
 		
 		<div class="col-md-2 col-xs-4 pull-right">
 							<button style='border:none;background:transparent;color:black;' ng-disabled='currentPage == 0' class='glyphicon glyphicon-chevron-left' ng-click='currentPage=currentPage-1'></button>
@@ -42,13 +41,13 @@
 					<tr ng-repeat="data in accountsList | filter:search.values | startFrom:currentPage*pageSize | limitTo:pageSize">
 						<td>{{$index + 1}}</td>
 						<td>{{data._id}}</td>
-						<td>{{data.memberid[0].firstname}} {{data.memberid[0].midname}} {{data.memberid[0].lastname}}</td>
-						<td>{{data.accounttypeid[0].accounttype}}</td>
-						<td>{{data.planid[0].name}}</td>
+						<td>{{data.memberid.firstname}} {{data.memberid.midname}} {{data.memberid.lastname}}</td>
+						<td>{{data.accounttypeid.accounttype}}</td>
+						<td>{{data.planid.name}}</td>
 						<td>{{data.interestrate}}</td>
 						<td class="text-right">{{(data.loanamount |number:2) || (data.netamount |number:2) || "0.00"}}</td>
-						<td>{{data.branchid[0].branchname}}</td>
-						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectTomembersform('/MemberForm/',data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteMember(data._id)">Delete</button> | <button class="btn btn-primary" ng-click="getMembersAccounts(data._id)" data-toggle="modal" data-target="#AccountsDetails">Accounts</button></td>
+						<td>{{data.branchid.branchname}}</td>
+						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectTomembersform('/MemberForm/',data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteMember(data._id)">Delete</button></td>
 					</tr>
 				</tbody>
 			</table>

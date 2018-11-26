@@ -182,24 +182,25 @@ function readURL(input) {
 			<input type="text" class="form-control" id="referred" placeholder="Referred By" ng-model="membersDetails[0].refredby">
 		</div>
 	</div>
-	<div ng-controller="MastersController" >
-	<div class="col-md-3 col-xs-12">
-		<div class="form-group" ng-init="ListBranchs()">
+	<div>
+	<div class="col-md-3 col-xs-12" ng-init="ListBranchs();">
+		<div class="form-group">
 			<label for="branch">Branch:</label>
-			<input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)">
+			<select class="form-control" ng-model="membersDetails[0].branch[0]" ng-options="obj._id as obj.branchname for obj in branchList" ng-change="ListAreasOnBranch(membersDetails[0].branch[0])" >
+				<option value="" selected disabled>Select Branch</option>
+			</select>
+			<!-- <input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)" required> -->
 		</div>
 	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
 			<label for="area">Area:</label>
-			<input type="text" class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)">
-		</div>
-	</div>
-	
-	<div class="col-md-3 col-xs-12">
-		<div class="form-group">
-			<label for="group">Group:</label>
-			<input type="text" class="form-control" id="group" placeholder="Group" ng-model="membersDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" >
+			
+			<select class="form-control" id="area" ng-model="membersDetails[0].areaid[0]" ng-options="obj._id as obj.areaname for obj in ListOfAreas" ng-change="ListGroupsOnArea(membersDetails[0].areaid[0])">
+			<option value="" selected disabled>Select Area</option>
+			</select>
+			
+			<!-- <input type="text" class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)" required> -->
 		</div>
 	</div>
 	</div>

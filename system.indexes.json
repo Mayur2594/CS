@@ -1,0 +1,8 @@
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.branchdetails" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.employeedetails" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.areadetails" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.groupdetails" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.eventsdetails" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.accounttypes" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.accountplans" }
+{ "v" : 1, "key" : { "_id" : 1 }, "name" : "_id_", "ns" : "creditsociety.termsnconditions" }

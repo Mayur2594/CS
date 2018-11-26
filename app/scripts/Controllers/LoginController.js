@@ -145,6 +145,18 @@ angular.module('CSApp')
 		};
 		
 	
+	$scope.Listusers = function()
+	{
+		$http({
+              method: 'GET'
+              , url: '/api/Listusers/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			var Listusers = response.data;
+				console.log(Listusers)
+		});
+	}
+	
 	
 }).directive('customAutofocus', function() {
   return{

@@ -115,6 +115,7 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.ACTypesList = response.data;
+			console.log($scope.ACTypesList)
 			$(".loader").fadeOut("slow");
 			$scope.pagination($scope.ACTypesList);
 		});
@@ -137,7 +138,7 @@ angular.module('CSApp')
 				}
 				else
 				{
-					$scope.memberAccounts.interestrate = $scope.accountTypes[0].interestrate;
+					$scope.memberAccounts[0].interestrate = $scope.accountTypes[0].interestrate;
 				}
 			}
 			if($scope.accountPlans)
@@ -193,7 +194,6 @@ angular.module('CSApp')
 			}).then(function (response) {
 			$scope.ACPlanList = response.data;
 			$(".loader").fadeOut("slow");
-			console.log($scope.ACPlanList);
 			$scope.pagination($scope.ACPlanList);
 		});
 		};
@@ -209,13 +209,11 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.accountPlans = response.data;
+			$scope.getAccounttypesDetails($scope.accountPlans[0].actypeid)
 			if($scope.memberAccounts)
 			{
-				
-			
-				
 				$scope.memberAccounts[0].gourentorsdetails = [];
-				$scope.memberAccounts[0].accounttypeid = $scope.accountPlans[0].actypeid._id;
+				$scope.memberAccounts[0].accounttypeid = $scope.accountPlans[0].actypeid;
 				$scope.memberAccounts[0].interestrate = $scope.accountPlans[0].interestrate;
 				$scope.memberAccounts[0].investedamount = $scope.accountPlans[0].basicamount;
 				$scope.memberAccounts[0].netamount = $scope.accountPlans[0].netamount;
