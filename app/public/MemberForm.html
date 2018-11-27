@@ -5,6 +5,8 @@ function readURL(input) {
         }
     }
 </script>
+<div class="container-fluid">
+ <div id="mainMenu" ng-include="'public/mainMenu.html'"></div> 
 <div class="container" id="memberform" ng-controller="MembersController" >
 
 
@@ -203,6 +205,17 @@ function readURL(input) {
 			<!-- <input type="text" class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)" required> -->
 		</div>
 	</div>
+	
+	<div class="col-md-3 col-xs-12">
+		<div class="form-group">
+			<label for="group">Group:</label>
+			<select class="form-control" id="group" ng-model="membersDetails[0].group[0]" ng-options="obj._id as obj.groupname for obj in ListOfGroups">
+			
+			</select>
+			<!-- <input type="text" class="form-control" id="group" placeholder="Group" ng-model="membersDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" required> -->
+		</div>
+	</div>
+	
 	</div>
 	<div class="col-md-3 col-xs-12">
 		<div class="form-group">
@@ -229,4 +242,5 @@ function readURL(input) {
 	</div>
 	
 </form>
+</div>
 </div>

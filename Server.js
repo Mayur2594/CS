@@ -4,6 +4,7 @@ var bodypareser = require('body-parser')
 var mongoose = require('mongoose');
 var fs = require('fs');
 var morgan = require('morgan');
+var cluster = require('cluster');
 var routes = require('./lib/routes');
 
 var app = express();
@@ -36,6 +37,35 @@ mongoose.connect(process.env.MONGOLAB_URI, options).then(
 
 routes.configure(app);
 
+	if(cluster.isMaster) {
+		var numWorkers = require('os').cpus().length;
+		console.log('Master cluster setting up ' + numWorkers + ' workers...');
+
+		for(var i = 0; i < numWorkers; i++) {
+			cluster.fork();
+		}
+
+		cluster.on('online', function(worker) {
+			console.log('Worker ' + worker.process.pid + ' is online');
+		});
+		
+		
+
+		cluster.on('exit', function(worker, code, signal) {
+			console.log('Worker ' + worker.process.pid + ' died with code: ' + code + ', and signal: ' + signal);
+			console.log('Starting a new worker');
+			cluster.fork();
+		});
+		
+		
+	} 
+	else {
+		
+		//app.all('/*', function(req, res) {res.send('process ' + process.pid + ' says hello!').end();})
+		
+		
 var server = app.listen(parseInt(process.env.SERVING_PORT),function(){
 	console.log('server start on '+ server.address().port+ ' port');
 })
+	}
+

@@ -56,11 +56,8 @@ angular.module('CSApp')
 					$scope.recordsdisplay = [{value:10,name:10},{value:25,name:25},{value:50,name:50},{value:100,name:100},{value:listdata.length,name:'All'}]
 					$scope.currentPage = 0;
 					$scope.pageSize = 10;
-					if($scope.myValue > listdata.length)
-					{
-						$scope.myValue = 1;
-					}
-								$(".loader").fadeOut("slow");
+					
+					$(".loader").fadeOut("slow");
 					$scope.numberOfPages = function () {
 						return Math.ceil(listdata.length / $scope.pageSize);
 					};
@@ -117,7 +114,6 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.membersList = response.data;
-			console.log($scope.membersList);
 			$scope.pagination($scope.membersList);
 		});
 		};
@@ -137,13 +133,21 @@ angular.module('CSApp')
 		
 		
 		
-		$scope.GetMembersDetails = function()
+		$scope.GetMembersDetails = function(memberid)
 		{
-			if(passvar)
+			if(passvar && !memberid)
+			{
+				var memeber_id = passvar;
+			}
+			if(!passvar && memberid)
+			{
+				var memeber_id = memberid;
+			}
+			if(memeber_id)
 			{
 			$http({
               method: 'GET'
-              , url: '/api/GetMembersDetails/'+passvar
+              , url: '/api/GetMembersDetails/'+memeber_id
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.membersDetails = response.data;
@@ -252,11 +256,89 @@ angular.module('CSApp')
               , dataType: 'jsonp'
 			}).then(function (response) {
 			$scope.accountsList = response.data;
-			console.log($scope.accountsList);
 			$scope.pagination($scope.accountsList);
 		});
 			
 		};
+		
+		
+		
+		/* AGENT DETAILS */
+		$scope.ListAgents = function()
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/ListAgents/'
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.AgentsList = response.data;
+			$scope.pagination($scope.AgentsList);
+		});
+			
+		};
+		
+		$scope.GetAgentsDetails = function(agentid)
+		{
+			$http({
+              method: 'GET'
+              , url: '/api/GetAgentsDetails/'+agentid
+              , dataType: 'jsonp'
+			}).then(function (response) {
+			$scope.membersDetails = response.data;
+			$scope.ListAreasOnBranch($scope.membersDetails[0].branch[0]);
+			$scope.ListGroupsOnArea($scope.membersDetails[0].areaid[0]);
+		});
+			
+		};
+		
+		$scope.ActiveDeactiveFeatures = function(agentsdetails,actsts)
+		{
+			if(agentsdetails)
+			{
+				var membersdetails = agentsdetails;
+			}
+			if($scope.membersDetails)
+			{
+				var membersdetails = $scope.membersDetails[0];
+			}
+			$http({
+				method  : 'POST',
+				url     : '/api/ActiveDeactiveFeatures/',
+				data    : membersdetails,
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function (response) {
+				if(response.data.status === 0)
+				{
+					if(agentsdetails)
+						$scope.ListAgents();
+					else
+					$scope.GetMembersDetails(membersdetails._id);
+				}
+			});
+		};
+		
+		$scope.SaveMemberAsAgent = function()
+		{
+			$http({
+				method  : 'POST',
+				url     : '/api/SaveMemberAsAgent/',
+				data    : $scope.membersDetails[0],
+				headers : {'Content-Type': 'application/json'} 
+				}).then(function (response) {
+				if(response.data.status === 0)
+				{
+					alert(response.data.message);
+					$scope.ListMembers();
+				}
+				else
+				{
+					alert(response.data.message);
+				}
+			});
+		};
+		
+		
+		/* AGENT DETAILS */
 	
 		/* REFERANCE FUNCTION---- */
 		

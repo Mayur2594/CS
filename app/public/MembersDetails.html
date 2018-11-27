@@ -1,4 +1,7 @@
+
+
 <div class="container-fluid" ng-controller="MembersController">
+<div id="mainMenu" ng-include="'public/mainMenu.html'"></div> 
 	<div class="row">
 		<div class="col-md-6 col-sm-6 col-xs-6  mt--1"><h3 class="h3-responsive">Members`s Details</h3></div>
 		<div class="col-md-3 col-sm-6 col-xs-6 pull-right">
@@ -44,7 +47,7 @@
 						<td>{{data.branch[0].branchname}}</td>
 						<td>{{data.documentsdetails.aadhaar}}</td>
 						<td>{{data.depositeamount}}</td>
-						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectTomembersform('/MemberForm/',data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteMember(data._id)">Delete</button> | <button class="btn btn-primary" ng-click="getMembersAccounts(data._id)" data-toggle="modal" data-target="#AccountsDetails">Accounts</button></td>
+						<td class="text-center"><button class="btn btn-warning" ng-click="RedirectTomembersform('/MemberForm/',data._id)">Edit</button> | <button class="btn btn-danger" ng-click="DeleteMember(data._id)">Delete</button> | <button class="btn btn-primary" ng-click="getMembersAccounts(data._id)" data-toggle="modal" data-target="#AccountsDetails">Accounts</button> | <button class="btn btn-info" ng-click="GetMembersDetails(data._id)" data-toggle="modal" data-target="#AgentAssignment"><span class="glyphicon glyphicon-ok" ng-if="data.isagent === 1"></span>&nbsp;Agent</button></td>
 					</tr>
 				</tbody>
 			</table>
@@ -106,4 +109,84 @@
 		
 		
 		
+		
+		
+					<!-- Modal Agent assignment-->
+					<div id="AgentAssignment" class="modal fade" role="dialog">
+					  <div class="modal-dialog">
+
+						<!-- Modal content-->
+						<div class="modal-content">
+						  <div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<!-- <h4 class="modal-title">Accounts Details</h4> -->
+						  </div>
+						  <div class="modal-body">
+							<div class="row">
+								<div class="col-md-12 col-sm-12 col-xs-12 col-lg-12">
+									<div class="col-md-4 col-sm-4 col-xs-4 col-lg-4">
+										<img src="uploads/{{membersDetails[0].documentsdetails.pic}}" alt="{{membersDetails[0].documentsdetails.pic}}" class="img-responsive"/>
+									</div>
+									
+									<div class="col-md-8 col-sm-8 col-xs-8 col-lg-8">
+										<div class="row">
+											<h4><strong>Name: {{membersDetails[0].firstname}} {{membersDetails[0].midname}} {{membersDetails[0].lastname}}.</strong></h4>
+										</div>
+										
+										<div class="row">
+											<h4><strong>Contact: {{membersDetails[0].contactdetails.mobile1}} <span ng-if="membersDetails[0].contactdetails.mobile2">/</span> {{membersDetails[0].contactdetails.mobile2}} </strong></h4>
+										</div>
+
+										<div class="row">
+											<h4><strong>Email: {{membersDetails[0].contactdetails.email}}</h4>
+										</div>
+									</div>
+								</div>	
+							</div>
+							<div class="row">
+								<div class="col-md-3 col-xs-12" ng-init="ListBranchs();">
+		<div class="form-group">
+			<label for="branch">Branch:</label>
+			<select class="form-control" ng-model="membersDetails[0].branch[0]" ng-options="obj._id as obj.branchname for obj in branchList" ng-change="ListAreasOnBranch(membersDetails[0].branch[0])" >
+				<option value="" selected disabled>Select Branch</option>
+			</select>
+			<!-- <input type="text" class="form-control" id="branch" placeholder="Branch" ng-model="membersDetails[0].branch" uib-typeahead="obj as obj.branchname for obj in branchList" typeahead-on-select="ListAreasOnBranch($item._id)" required> -->
+		</div>
+							</div>
+							<div class="col-md-3 col-xs-12">
+								<div class="form-group">
+									<label for="area">Area:</label>
+									
+									<select class="form-control" id="area" ng-model="membersDetails[0].areaid[0]" ng-options="obj._id as obj.areaname for obj in ListOfAreas" ng-change="ListGroupsOnArea(membersDetails[0].areaid[0])">
+									<option value="" selected disabled>Select Area</option>
+									</select>
+									
+									<!-- <input type="text" class="form-control" id="area" placeholder="Area" ng-model="membersDetails[0].areaid" uib-typeahead="obj as obj.areaname for obj in ListOfAreas" typeahead-on-select="ListGroupsOnArea($item._id)" required> -->
+								</div>
+							</div>
+							
+							<div class="col-md-3 col-xs-12">
+								<div class="form-group">
+									<label for="group">Group:</label>
+									<select class="form-control" id="group" ng-model="membersDetails[0].group[0]" ng-options="obj._id as obj.groupname for obj in ListOfGroups">
+									
+									</select>
+									<!-- <input type="text" class="form-control" id="group" placeholder="Group" ng-model="membersDetails[0].group" uib-typeahead="obj as obj.groupname for obj in ListOfGroups" required> -->
+								</div>
+							</div>
+							
+							<div class="col-md-3 col-xs-12" style="margin-bottom:1rem;">
+								<button class="btn" ng-class="{'btn-danger': !membersDetails[0].isagent || membersDetails[0].isagent === 0, 'btn-success': membersDetails[0].isagent === 1}" ng-click="ActiveDeactiveFeatures()"><span ng-if="!membersDetails[0].isagent || membersDetails[0].isagent === 0">Deactive</span><span ng-if="membersDetails[0].isagent === 1">Active</span></button>
+								
+							</div>
+						  </div>
+						  <div class="modal-footer">
+							<button type="button" class="btn btn-primary" ng-click="SaveMemberAsAgent()"data-dismiss="modal" >Submit</button>
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						  </div>
+						</div>
+
+					  </div>
+					</div>
+				</div>
 </div>
