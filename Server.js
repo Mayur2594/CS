@@ -28,8 +28,26 @@ const options = {
 };
 
 mongoose.connect(process.env.MONGOLAB_URI, options).then(
-  () => { 
+ async () => { 
      console.log("Connected successfully");
+
+	  const collectionsToCreate = ['accountplans','accounttypes','areadetails','branchdetails','employeedetails','eventsdetails','groupdetails','memberAccounts','membersDetails','termsnconditions', 'collectionDetails', 'collectionLimit',];
+
+    const existingCollections = await mongoose.connection.db
+      .listCollections()
+      .toArray();
+
+    const existingNames = existingCollections.map(c => c.name);
+
+    for (const name of collectionsToCreate) {
+      if (!existingNames.includes(name)) {
+        await mongoose.connection.db.createCollection(name);
+        console.log(`${name} created`);
+      } else {
+        console.log(`${name} already exists`);
+      }
+    }
+	 
   /** ready to use. The `mongoose.connect()` promise resolves to undefined. */ },
   err => { /** handle initial connection error */ 
 	console.log("Datebase error: "+err);
@@ -41,7 +59,7 @@ routes.configure(app);
 		var numWorkers = require('os').cpus().length;
 		console.log('Master cluster setting up ' + numWorkers + ' workers...');
 
-		for(var i = 0; i < numWorkers; i++) {
+		for(var i = 0; i < 1; i++) {
 			cluster.fork();
 		}
 
